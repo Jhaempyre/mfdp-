@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import mongoose , {Schema} from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt"
@@ -36,26 +35,29 @@ const adminSchema = new Schema({
         required:[true,"Passowrd caahiye re baba"]
     },
 
-    schoolname:{
+    schoolName:{
         type:String,
         required:true,
         trim:true,
     },
 
-    schooluniquecode:{
+    schoolUniqueCode:{
         type:String,
         required:true,
         trim:true,
     },
-
+    accessKey:{
+        type:String,
+        required:true
+    },
     //country /houseno, street-name ,/area/block /locality /sector, district , state , pincode 
-    schooladress:{
+    schoolAdress:{
         type:String,
         required:true,
         trim:true,
     },
 
-    schoolmobile:{
+    schoolMobile:{
         type:Number,
         required:true,
         trim:true,
@@ -63,7 +65,7 @@ const adminSchema = new Schema({
 
     //this will be required for sms and whatsapp communication
 
-    adminmobile:{
+    adminMobile:{
         type:Number,
         required:true,
         trim:true,
@@ -97,7 +99,7 @@ adminSchema.pre("save",async function(next){
 })
 
 
-userSchema.methods.genrateAccessToken = function()
+adminSchema.methods.genrateAccessToken = function()
 {
     return jwt.sign({
         _id:this._id,
@@ -110,7 +112,7 @@ userSchema.methods.genrateAccessToken = function()
     )
 }
 
-userSchema.methods.genrateRefreshToken = function()
+adminSchema.methods.genrateRefreshToken = function()
     {
         return jwt.sign({
         _id:this._id,

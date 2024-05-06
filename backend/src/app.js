@@ -28,4 +28,8 @@ app.use(express.urlencoded({
 
 app.use(express.static("public"))//public asset hae jaha 
 
+import adminRouter from "./routes/admin.routes.js"
+
+app.use("/api/v1/admin",adminRouter)
+
 export {app}
