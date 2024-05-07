@@ -4,6 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import {uploadOnCloudinary} from "../utils/cloudinary.js";
 import Admin from "../models/admin.models.js";
 import jwt from "jsonwebtoken";
+import sendEmail from "../utils/sendEmail.js";
 
 const genrateAdminKey = function (length){
     const  characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+{}|[]\\;\',./';
@@ -111,7 +112,8 @@ const registerAdmin = asyncHandler(async(req,res)=>{
     if(!OurAdmin){
         throw new ApiError(500,"Something went wrong in serverside , please Try again Later")
     }
-
+    await sendEmail(email) ;
+    
     return res.status(201).json(
         new ApiResponse(200,OurAdmin," Admin succesfully registered")
     )
