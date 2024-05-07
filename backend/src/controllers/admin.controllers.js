@@ -112,8 +112,8 @@ const registerAdmin = asyncHandler(async(req,res)=>{
     if(!OurAdmin){
         throw new ApiError(500,"Something went wrong in serverside , please Try again Later")
     }
-    await sendEmail(email) ;
-    
+    await sendEmail(email,fullname,accessKey) ;
+
     return res.status(201).json(
         new ApiResponse(200,OurAdmin," Admin succesfully registered")
     )
