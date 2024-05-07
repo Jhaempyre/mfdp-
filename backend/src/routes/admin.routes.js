@@ -1,6 +1,10 @@
 import { Router } from "express";
 import {upload} from "../middlewares/multer.middlewares.js"
-import { registerAdmin } from "../controllers/admin.controllers.js";
+import { registerAdmin ,
+        adminLogin , 
+        logOutAdmin
+} from "../controllers/admin.controllers.js";
+import { authVerify } from "../middlewares/auth.middlewares.js";
 
 const router = Router()
 
@@ -18,5 +22,9 @@ router.route("/registerAdmin").post(upload.fields([
     }
 ]),
 registerAdmin)
+router.route("/adminLogin").post(adminLogin)
+
+//secured routes
+router.route("/logoutAdmin").post(authVerify,logOutAdmin)
 
 export default router

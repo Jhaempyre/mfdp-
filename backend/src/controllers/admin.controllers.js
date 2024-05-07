@@ -6,6 +6,19 @@ import Admin from "../models/admin.models.js";
 import jwt from "jsonwebtoken";
 import sendEmail from "../utils/sendEmail.js";
 
+const genrateAccessTokenAndRefreshToken = async (userId) => {
+    try {
+        const User = await Admin.findById(userId);
+        const accessToken = User.genrateAccessToken();
+        const refreshToken = User.genrateRefreshToken();
+        User.refreshToken = refreshToken;
+        User.save({ validateBeforeSave: false }); 
+        return { accessToken, refreshToken };
+    } catch (error) {
+        throw new ApiError(420, "You are not authorised");
+    }
+};
+
 const genrateAdminKey = function (length){
     const  characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+{}|[]\\;\',./';
     let result = '';
@@ -119,4 +132,77 @@ const registerAdmin = asyncHandler(async(req,res)=>{
     )
 })
 
-export {registerAdmin}
+const adminLogin = asyncHandler(async(req,res)=>{
+    
+    const {email, password,username} = req.body
+    if(!email){
+        throw new ApiError(400,"Email is required")
+    }
+    if(!password){
+        throw new ApiError(400,"password is required")
+    }
+    const logAdmin = await Admin.findOne({
+        $or : [{username},{email}]
+    })
+    if(!logAdmin){
+        throw new ApiError(400,"Invalid Credentials or Admin doesn't exsist")
+    }
+    const isPasswordValid = await logAdmin.isPasswordCorrect(password)
+    if (!(isPasswordValid)){
+        throw new ApiError(405, "invalid credential")
+     }
+
+    const {accessToken, refreshToken} = await genrateAccessTokenAndRefreshToken(logAdmin._id)
+    const loggedInAdmin = await Admin.findById(logAdmin._id).select("-password -refreshToken")
+    console.log(loggedInAdmin)
+
+    const options = {
+        httpOnly : true ,
+        secure : true
+    }
+
+
+    return res.status(200)
+  .cookie("accessToken", accessToken, options)
+  .cookie("refreshToken", refreshToken, options)
+  .json(
+    new ApiResponse(
+        200, 
+        {
+            Admin : loggedInAdmin,
+            accessToken : accessToken,
+            refreshToken : refreshToken
+        },
+        "Admin logged In Successfully"
+    )
+)
+})
+
+const logOutAdmin = asyncHandler(async(req,res)=>{
+    // chek form miidle ware is user looged in 
+    await Admin.findByIdAndUpdate(
+       req.theAdmin._id,
+       {
+           $unset:{
+               refreshToken : 1
+           }
+       }, 
+           {
+               new : true
+           }
+    )
+    const options = {
+       httpOnly: true,
+       secure: true
+   }
+
+   return res
+   .status(200)
+   .clearCookie("accessToken", options)
+   .clearCookie("refreshToken", options)
+   .json(new ApiResponse(200, {}, "Admin logged Out"))
+})
+export {registerAdmin,
+        adminLogin,
+        logOutAdmin
+}
