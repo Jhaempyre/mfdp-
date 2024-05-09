@@ -202,7 +202,30 @@ const logOutAdmin = asyncHandler(async(req,res)=>{
    .clearCookie("refreshToken", options)
    .json(new ApiResponse(200, {}, "Admin logged Out"))
 })
+const changePassword = asyncHandler(async(req,res)=>{
+    const {oldPassword, newPassword,newConsfirmPassword} = req.body
+    const User = await Admin.findById(req.theAdmin?._id);
+    if (!User){
+        throw new ApiError(404,"User not found")
+    }
+    // chek if password is correct
+    const validation = await User.isPasswordCorrect(oldPassword)
+    // chekckung the validation 
+    if (!validation){
+        return res.status(400).json(new ApiResponse(400, {}, "Old Password is incorrect"))
+    }
+    //update password to database and get user 
+    User.password = newPassword
+    await User.save({validateBeforeSave: false})
+    return res.status(200).
+    json(new ApiResponse(
+        200,
+        {},
+        "Password changed successfully"
+    ))
+})
 export {registerAdmin,
         adminLogin,
-        logOutAdmin
+        logOutAdmin,
+        changePassword
 }
