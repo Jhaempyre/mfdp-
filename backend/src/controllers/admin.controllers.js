@@ -224,8 +224,62 @@ const changePassword = asyncHandler(async(req,res)=>{
         "Password changed successfully"
     ))
 })
+const updateRefreshToken = asyncHandler(async(req,res)=>{
+    const cookieRefreshToken = (req.cookies.refreshToken) || (req.body.refreshToken)
+    //console.log(cookieRefreshToken)
+    if(!cookieRefreshToken){
+        throw new ApiError(400,"You are not Uthorised")
+    }
+    const decodedRefresh = jwt.verify(cookieRefreshToken,process.env.REFRESH_TOKEN_SECRET)
+    console.log("decodedRefresh");
+    console.log(decodedRefresh);
+    const User = await Admin.findById(decodedRefresh?._id)
+    if (!User){
+        throw new ApiError(402,"You are not authorised")
+    }
+    if(cookieRefreshToken !== User?.refreshToken){
+        throw new ApiError(403,"refresh token is used & need to login again")
+    }
+    const options = {
+        httpOnly: true,
+        secure: true
+    }
+
+
+})
 export {registerAdmin,
         adminLogin,
         logOutAdmin,
         changePassword
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
