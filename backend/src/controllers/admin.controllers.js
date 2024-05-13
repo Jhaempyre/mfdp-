@@ -47,7 +47,7 @@ const registerAdmin = asyncHandler(async(req,res)=>{
 
     const {fullname ,email , password ,confirmPassword, username , schoolName,schoolAdress,schoolMobile, adminMobile,profileImage,schoolImage} = req.body      ; 
     
-   if ([fullname ,email , password ,confirmPassword,username , schoolName,schoolAdress,schoolMobile,adminMobile,profileImage,schoolImage].some((field) => field?.trim()=== "")){
+   if ([fullname ,email , password ,confirmPassword, schoolName,schoolAdress,schoolMobile,adminMobile,profileImage,schoolImage].some((field) => field?.trim()=== "")){
         throw new ApiError(400,"All feilds all required ")
    }  
    
@@ -250,7 +250,8 @@ const updateRefreshToken = asyncHandler(async(req,res)=>{
 export {registerAdmin,
         adminLogin,
         logOutAdmin,
-        changePassword
+        changePassword, 
+        updateRefreshToken
 }
 
 
