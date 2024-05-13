@@ -4,12 +4,13 @@ import viteLogo from '/vite.svg'
 import FrontPage from './Components/FrontPage'
 import './App.css'
 import LogIn from './Components/LogIn'
+import SignUp from './Components/SignUp'
 
 function App() {
 
   return (
     <div >
-      <LogIn/>
+      <SignUp/>
     </div>
   )
 }

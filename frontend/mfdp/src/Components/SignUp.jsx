@@ -3,6 +3,8 @@ import {Link ,useNavigate} from 'react-router-dom'
 const SignUp = () => {
   return (
     <>
+     <div className="min-h-screen flex justify-center items-center bg-blue-500">
+    <div className="bg-white  p-8  shadow-lg rounded-lg" style={{ maxWidth: '600px' }}>
     <h2 className="text-center text-2xl font-bold leading-tight">Sign up to create account</h2>
     <p className="mt-2 text-center text-base text-black/60">
             Already have an account?&nbsp;
@@ -14,6 +16,8 @@ const SignUp = () => {
             </a>
         </p>
 
+
+      <form>
       <label className="form-control w-full max-w-xs">
         <div className="label">
           <span className="label-text text-gray-800">School Name</span>
@@ -128,9 +132,14 @@ const SignUp = () => {
           <div className="label"></div>
         </label>
       </div>
-
+      <div className="mt-4 flex items-center">
+        <input type="checkbox" className="form-checkbox"  />
+        <label className="ml-2 text-gray-800">I agree to the terms and conditions</label>
+      </div>
       <button className="btn btn-active btn-primary">Sign Up</button>
-     
+       </form>
+     </div>
+     </div>
     </>
   );
 };
