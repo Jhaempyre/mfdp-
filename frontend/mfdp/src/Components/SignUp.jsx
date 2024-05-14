@@ -12,7 +12,7 @@ const SignUp = () => {
                 to="www.gl.com"
                 className="font-medium text-primary transition-all duration-200 hover:underline"
             >
-                Sign In
+                Log in
             </a>
         </p>
 
@@ -50,7 +50,7 @@ const SignUp = () => {
         <div className="label">
           <span className="label-text text-gray-800">Email</span>
         </div>
-        <input type="email" placeholder="some@any.com" className="input input-bordered w-full max-w-xs" />
+        <input type="email" placeholder="any@domain.com" className="input input-bordered w-full max-w-xs" />
         <div className="label"></div>
       </label>
 
@@ -82,8 +82,8 @@ const SignUp = () => {
         </label>
       </div>
 
-      <div>Enter your School Postal Adress</div>
-      <input type="text" placeholder="Enter your School Adresss " className="input  w-full max-w-xs" />
+      <div>Enter your School Postal Address</div>
+      <input type="Address" placeholder="Enter your School Addresss " className="input  w-full max-w-xs" />
 
       <div className="flex items-center">
         <label className="form-control w-full max-w-xs">
@@ -136,7 +136,7 @@ const SignUp = () => {
         <input type="checkbox" className="form-checkbox"  />
         <label className="ml-2 text-gray-800">I agree to the terms and conditions</label>
       </div>
-      <button className="btn btn-active btn-primary">Sign Up</button>
+      <button className="btn btn-success mt-2">Sign Up</button>
        </form>
      </div>
      </div>
