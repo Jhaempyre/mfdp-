@@ -16,8 +16,8 @@ const SignUp = () => {
     schoolNumber : "",
     adminMobile : "",
     pincode : "",
-    schoolProfile : "",
-    adminProfile : ""
+    schoolImage: null, // Change to match multer field name
+    profileImage: null  // Change to match multer field name
 	});
 
   const [isChecked, setIsChecked] = useState(false);
@@ -29,9 +29,28 @@ const SignUp = () => {
     setIsChecked(e.target.checked);
   };
 
+  const handleFileChange = (e) => {
+    const { name, files } = e.target;
+    setInputs({ ...inputs, [name]: files[0] });
+  };
+
   const handleSubmit = async(e)=>{
     e.preventDefault();
-		console.log(inputs)
+    const formData = new FormData();
+    const fullName = `${inputs.firstName} ${inputs.lastName}`;
+  formData.append('fullName', fullName);
+
+  // Convert schoolNumber and adminMobile to integers
+  formData.append('schoolNumber', parseInt(inputs.schoolNumber, 10));
+  formData.append('adminMobile', parseInt(inputs.adminMobile, 10));
+        for (const key in inputs) {
+            formData.append(key, inputs[key]);
+        }
+        console.log('FormData:', formData);
+        for (let pair of formData.entries()) {
+          console.log(pair[0] + ': ' + pair[1]);
+        }  
+		   await signUp(formData);
 
   }
 
@@ -210,10 +229,12 @@ const SignUp = () => {
           </div>
           <input 
           type="file" 
+          name="schoolImage"
           placeholder="Please select profile picture" 
           className="input input-bordered w-full max-w-xs"
-          value={inputs.schoolProfile}
-				onChange={(e) => setInputs({ ...inputs, schoolProfile: e.target.value })} />
+          onChange={handleFileChange} 
+          accept="image/*" />
+				
           <div className="label"></div>
         </label>
 
@@ -225,10 +246,11 @@ const SignUp = () => {
           </div>
           <input 
           type="file" 
+          name="profileImage" 
           placeholder="select admin profile pic" 
           className="input input-bordered w-full max-w-xs"
-          value={inputs.adminProfile}
-				  onChange={(e) => setInputs({ ...inputs, adminProfile: e.target.value })} />
+          accept="image/*" 
+          onChange={handleFileChange}  />
           <div className="label"></div>
         </label>
       </div>

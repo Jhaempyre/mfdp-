@@ -44,12 +44,13 @@ const genrateUniqueCode = function(length){
 }
 
 const registerAdmin = asyncHandler(async(req,res)=>{
-
-    const {fullname ,email , password ,confirmPassword, username , schoolName,schoolAdress,schoolMobile, adminMobile,profileImage,schoolImage} = req.body      ; 
+    console.log("radha")
+    const {fullname ,email , password ,confirmPassword, username , schoolName,schoolAddress,schoolMobile, adminMobile,profileImage,schoolImage} = req.body      ; 
     
-   if ([fullname ,email , password ,confirmPassword, schoolName,schoolAdress,schoolMobile,adminMobile,profileImage,schoolImage].some((field) => field?.trim()=== "")){
-        throw new ApiError(400,"All feilds all required ")
-   }  
+    if ([fullname, email, password, confirmPassword, schoolName, schoolAddress, schoolMobile, adminMobile, profileImage, schoolImage].some((field) => typeof field === 'string' && field.trim() === "")) {
+        throw new ApiError(400, "All fields are required ");
+    }
+    
    
    const existedAdmin = await Admin.findOne({
     $and:[{email},{username}]
@@ -62,7 +63,7 @@ const registerAdmin = asyncHandler(async(req,res)=>{
    if(password!=confirmPassword){
     throw new ApiError(401,"Invalid Credentials{password and confirm password should be same}")
    }
-
+   console.log(req.body)
    let profileLocalPath;
    if(req.files && Array.isArray(req.files.profileImage)&& req.files.profileImage.length > 0){
     console.log(req.files.profileImage[0])
@@ -111,7 +112,7 @@ const registerAdmin = asyncHandler(async(req,res)=>{
     schoolName, 
     schoolUniqueCode, 
     accessKey,
-    schoolAdress,
+    schoolAddress,
     schoolMobile,
     adminMobile,
     profileImage :profileImageUrl?.url || "",

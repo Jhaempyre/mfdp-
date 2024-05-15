@@ -10,7 +10,7 @@ dotenv.config({
 
 
 //connecting to databse and spining up the server 
-
+console.log("ram")
 connectDB().then(()=>{
     app.listen(process.env.PORT|| 8000,()=>{
         console.log(`server is runnning at ${process.env.PORT}`)

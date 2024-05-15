@@ -2,78 +2,41 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios"
 
-const useSignUp = ()=>{
+const useSignUp = () => {
     const [loading, setLoading] = useState(false);
 
-    const signUp = async({
-        schoolName,
-        firstName,
-        lastName,
-        email,
-        password,
-        confirmPassword,
-        username,
-        schoolAddress,
-        schoolNumber,
-        adminMobile,
-        pincode,
-        schoolProfile,
-        adminProfile
-    })=>{
-     const success = handleInputErrors({
-            schoolName,
-            firstName,
-            lastName,
-            email,
-            password,
-            confirmPassword,
-            username,
-            schoolAddress,
-            schoolNumber,
-            adminMobile,
-            pincode,
-            schoolProfile,
-            adminProfile});
-            if (!success) return;
-            setLoading(true);    
+    const signUp = async (formData) => {
+        const success = handleInputErrors(formData);
+        if (success) return;  //// will strictly chek here 
+
+        setLoading(true);  
 
             try {
-                const res = await axios("/api/v1/admin/registerAdmin", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ 
-                        schoolName,
-                        firstName,
-                        lastName,
-                        email,
-                        password,
-                        confirmPassword,
-                        username,
-                        schoolAddress,
-                        schoolNumber,
-                        adminMobile,
-                        pincode,
-                        schoolProfile,
-                        adminProfile}),
-                });
+                console.log("Sending request to backend...");
+                const res = await axios.post("/api/v1/admin/registerAdmin",formData,
+                {
+                    headers: {
+                      'Content-Type': 'multipart/form-data',
+                    }
+                },);
 
-            const data = await res.json();
-			if (data.error) {
-				throw new Error(data.error);
-			}
-            toast.success("Registered Suceesfully , Please Login")
-            }
-            catch (error) {
+                console.log('Response:', res);
+        
+                if (res.data.error) {
+                    throw new Error(res.data.error);
+                }
+        
+                toast.success("Registered Successfully, Please Login");
+            } catch (error) {
                 toast.error(error.message);
-            }
-            finally {
+            } finally {
                 setLoading(false);
             }
 
         }
         return { loading, signUp }
     }
-    
+
     export default useSignUp
 // handle input errors
 
@@ -89,8 +52,8 @@ const useSignUp = ()=>{
         schoolNumber,
         adminMobile,
         pincode,
-        schoolProfile,
-        adminProfile
+        schoolImage,
+        profileImage
     }){
 
         if (!schoolName||!firstName||!lastName||!email||!password||!confirmPassword||!username||!schoolAddress||!schoolNumber||!adminMobile||!pincode||!schoolProfile||!adminProfile) {
@@ -103,10 +66,16 @@ const useSignUp = ()=>{
             return false;
         }
         if (password.length < 8) {
+            console.log("radha")
             toast.error("Password must be at least 8 characters");
     }
 
     return true;
     }    
     
+
+
+
+
+
 
