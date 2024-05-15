@@ -49,7 +49,7 @@ const adminSchema = new Schema({
         required:true
     },
     //country /houseno, street-name ,/area/block /locality /sector, district , state , pincode 
-    schoolAdress:{
+    schoolAddress:{
         type:String,
         required:true,
         trim:true,
