@@ -49,14 +49,14 @@ const useSignUp = () => {
         confirmPassword,
         username,
         schoolAddress,
-        schoolNumber,
+        schoolMobile,
         adminMobile,
         pincode,
         schoolImage,
         profileImage
     }){
 
-        if (!schoolName||!firstName||!lastName||!email||!password||!confirmPassword||!username||!schoolAddress||!schoolNumber||!adminMobile||!pincode||!schoolProfile||!adminProfile) {
+        if (!schoolName||!firstName||!lastName||!email||!password||!confirmPassword||!username||!schoolAddress||!schoolMobile||!adminMobile||!pincode||!schoolProfile||!adminProfile) {
             toast.error("Please fill in all fields");
             return false;
         }

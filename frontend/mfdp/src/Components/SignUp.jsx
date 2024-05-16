@@ -13,7 +13,7 @@ const SignUp = () => {
     confirmPassword : "",
     username : "",
     schoolAddress : "",
-    schoolNumber : "",
+    schoolMobile : "",
     adminMobile : "",
     pincode : "",
     schoolImage: null, // Change to match multer field name
@@ -37,12 +37,10 @@ const SignUp = () => {
   const handleSubmit = async(e)=>{
     e.preventDefault();
     const formData = new FormData();
-    const fullName = `${inputs.firstName} ${inputs.lastName}`;
-  formData.append('fullName', fullName);
+    const fullname = `${inputs.firstName} ${inputs.lastName}`;
+   formData.append('fullname', fullname);
 
   // Convert schoolNumber and adminMobile to integers
-  formData.append('schoolNumber', parseInt(inputs.schoolNumber, 10));
-  formData.append('adminMobile', parseInt(inputs.adminMobile, 10));
         for (const key in inputs) {
             formData.append(key, inputs[key]);
         }
@@ -188,8 +186,8 @@ const SignUp = () => {
           type="Number" 
           placeholder="School mobile" 
           className="input input-bordered w-full max-w-xs"
-          value={inputs.schoolNumber}
-				 onChange={(e) => setInputs({ ...inputs, schoolNumber: e.target.value })} />
+          value={inputs.schoolMobile}
+				 onChange={(e) => setInputs({ ...inputs, schoolMobile: e.target.value })} />
           <div className="label"></div>
         </label>
 

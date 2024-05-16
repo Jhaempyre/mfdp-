@@ -51,7 +51,7 @@ const registerAdmin = asyncHandler(async(req,res)=>{
         throw new ApiError(400, "All fields are required ");
     }
     
-   
+   console.log(typeof(req.body.schoolMobile))
    const existedAdmin = await Admin.findOne({
     $and:[{email},{username}]
    })

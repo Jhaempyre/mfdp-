@@ -56,7 +56,7 @@ const adminSchema = new Schema({
     },
 
     schoolMobile:{
-        type:Number,
+        type:String,
         required:true,
         trim:true,
     },
@@ -64,7 +64,7 @@ const adminSchema = new Schema({
     //this will be required for sms and whatsapp communication
 
     adminMobile:{
-        type:Number,
+        type:String,
         required:true,
         trim:true,
     },
