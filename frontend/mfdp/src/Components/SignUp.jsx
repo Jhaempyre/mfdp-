@@ -258,7 +258,11 @@ const SignUp = () => {
         className="form-checkbox" 
         checked={isChecked} 
         onChange={handleCheckboxChange} />
-        <label className="ml-2 text-gray-800">I agree to the terms and conditions</label>
+        <div>
+        <label className="ml-2 text-gray-800">I agree to the </label>
+        <a to="www.google.com"
+        className="font-medium text-primary transition-all duration-200 hover:underline">terms and conditions</a>   {/* To update with company terms and conditions*/}
+        </div>
       </div>
       <button type="submit" className="btn btn-success mt-2" disabled={!isChecked} >Sign Up</button>
        </form>
