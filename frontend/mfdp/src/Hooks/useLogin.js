@@ -31,10 +31,10 @@ const useLogIn = () => {
             if (response.data.error) {
                 throw new Error(response.data.error);
             }
-            console.log(response.data.admin)
-            const adminData = response.data.Admin;
+            const adminData = response.data.data.Admin;
+            console.log(adminData),
             adminStore.loggedAdmin(adminData);
-            console.log('rom',adminData)
+            console.log('Admin Data:', adminData);
             toast.success('Logged in successfully!');
             navigate('/dashboard');
             toast.success("Logged in Successfully");

@@ -20,9 +20,9 @@ const useAdminStore = create(
           createdAt: '',
           updatedAt: ''
         },
-        loggedAdmin: (data) => set((state) => ({
-            adminData: { adminData: data.Admin }
-          })),
+        loggedAdmin: (data) => set({
+          adminData: data
+        }),
         logout: () => set({
           adminData: {
             fullname: '',
