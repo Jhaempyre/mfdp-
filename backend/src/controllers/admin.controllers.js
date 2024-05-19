@@ -246,13 +246,25 @@ const updateRefreshToken = asyncHandler(async(req,res)=>{
         secure: true
     }
 
+    //will do tommoworow not in mvp  but still we will write 
 
+})
+const getCurrentUser = asyncHandler(async(req,res)=>{
+    return res.status(200)
+    .json(new ApiResponse(
+        200,
+        {
+            Admin : req.theAdmin
+        },
+        "Admin Details fetched Sucessfully"
+    ))
 })
 export {registerAdmin,
         adminLogin,
         logOutAdmin,
         changePassword, 
-        updateRefreshToken
+        updateRefreshToken,
+        getCurrentUser
 }
 
 
