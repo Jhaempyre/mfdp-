@@ -18,8 +18,9 @@ const useAdminStore = create(
           profileImage: '',
           schoolImage: '',
           createdAt: '',
-          updatedAt: ''
+          updatedAt: '',
         },
+        authStats: false,
         loggedAdmin: (data) => set({
           adminData: data
         }),
@@ -37,9 +38,14 @@ const useAdminStore = create(
             profileImage: '',
             schoolImage: '',
             createdAt: '',
-            updatedAt: ''
+            updatedAt: '',
           }
         }),
+        
+        authStatus : (data) => set({
+          authStats : true
+        })
+
       }),
       {
         name: 'admin',
@@ -49,3 +55,7 @@ const useAdminStore = create(
 );
 
 export default useAdminStore;
+
+
+
+

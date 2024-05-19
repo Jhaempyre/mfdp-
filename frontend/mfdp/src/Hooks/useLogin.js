@@ -35,6 +35,7 @@ const useLogIn = () => {
             console.log(adminData),
             adminStore.loggedAdmin(adminData);
             console.log('Admin Data:', adminData);
+            adminStore.authStatus(true)
             toast.success('Logged in successfully!');
             navigate('/dashboard');
             toast.success("Logged in Successfully");
