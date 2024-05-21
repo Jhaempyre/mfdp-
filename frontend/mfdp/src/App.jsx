@@ -10,6 +10,8 @@ import Dashboard from './Components/DashBoard'
 import useAdminStore from './Zustand/adminStore'
 import axios from 'axios'
 import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -54,11 +56,11 @@ function App() {
   }
 
   return (
-    <div>
-      <Dashboard />
-      <Toaster />
-    </div>
+  <div>
+    <LogIn/>
+  </div>
   );
 }
 
 export default App;
+
