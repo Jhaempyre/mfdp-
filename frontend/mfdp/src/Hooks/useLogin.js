@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 const useLogIn = () => {
     const [loading, setLoading] = useState(false);
     const adminStore = useAdminStore(); 
+    const navigate = useNavigate();
    
 
     const logIn = async (formData) => {
@@ -37,7 +38,7 @@ const useLogIn = () => {
             console.log('Admin Data:', adminData);
             adminStore.authStatus(true)
             toast.success('Logged in successfully!');
-            navigate('/dashboard');
+            navigate(`/dashboard/${adminData.username}`);
             toast.success("Logged in Successfully");
         } catch (error) {
             toast.error(error.message);

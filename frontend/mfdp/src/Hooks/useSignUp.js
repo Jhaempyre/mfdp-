@@ -1,9 +1,11 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios"
+import { useNavigate } from "react-router-dom";
 
 const useSignUp = () => {
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const signUp = async (formData) => {
         const success = handleInputErrors(formData);
@@ -27,6 +29,7 @@ const useSignUp = () => {
                 }
         
                 toast.success("Registered Successfully, Please Login");
+                navigate('/login')
             } catch (error) {
                 toast.error(error.message);
             } finally {

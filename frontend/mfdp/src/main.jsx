@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-import { createBrowserRouter } from 'react-router-dom'
+import { BrowserRouter, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import SignUp from './Components/SignUp.jsx'
 import LogIn from './Components/LogIn.jsx'
 import AuthLayout from './Components/AuthLayout.jsx'
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
         )
       },
       {
-        path : '/DashBoard',
+        path : '/dashboard/:username',
         element : (
           <AuthLayout authentication = {true}>
             <Dashboard/>
@@ -44,6 +44,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+     <RouterProvider router={router} />
   </React.StrictMode>,
 )

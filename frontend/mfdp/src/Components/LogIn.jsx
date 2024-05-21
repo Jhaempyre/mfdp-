@@ -2,6 +2,7 @@ import React from 'react'
 import ForgotPassword from './ForgotPassword'
 import { useState } from 'react'
 import useLogIn from "../Hooks/useLogin.js"
+import { Link } from 'react-router-dom'
 
 const LogIn = () => {
 
@@ -32,12 +33,12 @@ const LogIn = () => {
     <h2 className="text-center text-2xl font-bold leading-tight">Login to your <span style={{ color: 'red' }}>Dashboard</span></h2>
     <p className="mt-2 text-center text-base text-black/60">
            Don't Have an Account?&nbsp;
-            <a
-                to="www.gl.com"
+            <Link
+                to="/signup"
                 className="font-medium text-primary transition-all duration-200 hover:underline"
             >
                 Sign Up
-            </a>
+            </Link>
         </p>
         <form onSubmit={handleSubmit}>
         <label className="form-control w-full max-w-xs">

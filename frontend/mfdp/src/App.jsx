@@ -56,9 +56,9 @@ function App() {
   }
 
   return (
-  <div>
-    <LogIn/>
-  </div>
+<main>
+  <Outlet />
+</main>
   );
 }
 
