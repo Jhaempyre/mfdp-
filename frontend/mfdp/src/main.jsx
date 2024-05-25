@@ -32,10 +32,11 @@ const router = createBrowserRouter([
       },
       {
         path : '/dashboard/:username',
-        element : (
-          <AuthLayout authentication = {true}>
-            <Dashboard/>
-          </AuthLayout>
+        element : (                           
+                                   //<AuthLayout authentication = {true}>
+
+                      <Dashboard/>
+                                            // </AuthLayout>
         )
       }
     ]

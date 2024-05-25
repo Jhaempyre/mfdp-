@@ -1,5 +1,9 @@
 import React from 'react';
 import useAdminStore from '../Zustand/adminStore.js';
+import NavBar from './Header/NavBar.jsx';
+import DashboardLayout from './MainWorK/DashboardLayout.jsx';
+
+
 
 const Dashboard = () => {
   const adminData = useAdminStore((state) => state.adminData);
@@ -7,12 +11,9 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h1>Dashboard</h1>
-      {authStatus ? (
-        <pre>{JSON.stringify(adminData, null, 2)}</pre>
-      ) : (
-        <p>You are not logged in.</p>
-      )}
+    <NavBar/>
+    <DashboardLayout/>
+      
     </div>
   );
 };
