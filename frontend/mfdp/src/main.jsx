@@ -18,7 +18,7 @@ const router = createBrowserRouter([
       {
         path : '/signup',
         element :(
-          <AuthLayout authentication = {false}>
+          <AuthLayout >
             <SignUp/>
           </AuthLayout>
         )
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
       {
         path : '/login',
         element : (
-          <AuthLayout authentication = {false}>
+          <AuthLayout >
             <LogIn/>
           </AuthLayout>
         )
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
       {
         path : '/dashboard/:username',
         element : (                           
-          <AuthLayout authentication = {true}>
+          <AuthLayout >
                       <Dashboard/>
            </AuthLayout>
         )
