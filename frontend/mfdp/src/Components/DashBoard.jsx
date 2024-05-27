@@ -11,7 +11,6 @@ const Dashboard = () => {
 
   return (
     <div>
-    <NavBar/>
     <DashboardLayout/>
       
     </div>

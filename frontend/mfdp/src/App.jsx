@@ -12,6 +12,7 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { Outlet } from 'react-router-dom'
+import NavBar from './Components/Header/NavBar'
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -51,16 +52,25 @@ function App() {
     fetchUserData();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>; // Show a loading indicator while loading
+  if (authStatus) {
+    return (
+    <div>
+    <NavBar/>
+    <main>
+    <Toaster/>
+    <Outlet />
+  </main>
+  </div>
+    )
   }
-
+else{
   return (
 <main>
   <Toaster/>
   <Outlet />
 </main>
   );
+}
 }
 
 export default App;
