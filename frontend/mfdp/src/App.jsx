@@ -57,6 +57,7 @@ function App() {
 
   return (
 <main>
+  <Toaster/>
   <Outlet />
 </main>
   );

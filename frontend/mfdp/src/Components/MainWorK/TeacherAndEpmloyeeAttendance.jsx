@@ -2,7 +2,7 @@ import React from 'react'
 
 function TeacherAndEpmloyeeAttendance() {
   return (
-    <div>Employee Attendance</div>
+    <button>Employee Attendance</button>
   )
 }
 

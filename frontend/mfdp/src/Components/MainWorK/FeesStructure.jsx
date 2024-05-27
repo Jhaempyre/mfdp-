@@ -2,7 +2,7 @@ import React from 'react'
 
 function FeesStructure() {
   return (
-    <div>Fees Structure</div>
+    <button type="submit" className="btn btn-success mt-2" >Fees Structure </button>
   )
 }
 

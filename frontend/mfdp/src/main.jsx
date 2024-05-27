@@ -7,6 +7,7 @@ import SignUp from './Components/SignUp.jsx'
 import LogIn from './Components/LogIn.jsx'
 import AuthLayout from './Components/AuthLayout.jsx'
 import Dashboard from './Components/DashBoard.jsx'
+import { Toaster } from 'react-hot-toast'
 
 
 const router = createBrowserRouter([
@@ -33,10 +34,9 @@ const router = createBrowserRouter([
       {
         path : '/dashboard/:username',
         element : (                           
-                                   //<AuthLayout authentication = {true}>
-
+          <AuthLayout authentication = {true}>
                       <Dashboard/>
-                                            // </AuthLayout>
+           </AuthLayout>
         )
       }
     ]

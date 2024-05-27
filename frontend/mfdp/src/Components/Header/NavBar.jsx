@@ -1,11 +1,13 @@
 import React from 'react'
 import useAdminStore from '../../Zustand/adminStore';
+import useLogOut from '../../Hooks/useLogOut';
 
 function NavBar() {
 
     const adminData = useAdminStore((state) => state.adminData);
+    const {loading,logOut} = useLogOut()
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-base-100 ">
         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
           <img alt="Tailwind CSS Navbar component" src={adminData.schoolImage} />
@@ -31,8 +33,9 @@ function NavBar() {
             <span className="badge">New</span>
           </a>
         </li>
-        <li><a>Settings</a></li>
-        <li><a>Logout</a></li>
+        <li> <button onClick={logOut} disabled={loading} className="btn btn-ghost">
+                {loading ? 'Logging out...' : 'Logout'}
+              </button> </li>
       </ul>
     </div>
   </div>

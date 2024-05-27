@@ -43,7 +43,7 @@ const useAdminStore = create(
         }),
         
         authStatus : (data) => set({
-          authStats : true
+          authStats : data
         })
 
       }),

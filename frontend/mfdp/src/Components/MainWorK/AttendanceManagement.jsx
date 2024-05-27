@@ -2,7 +2,9 @@ import React from 'react'
 
 function AttendanceManagement() {
   return (
-    <div>Student Attendance</div>
+    <div>
+        <button type="submit" className="btn btn-success mt-2"  >AttendanceManagement</button>
+    </div>
   )
 }
 

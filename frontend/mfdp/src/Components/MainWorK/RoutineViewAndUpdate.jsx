@@ -2,7 +2,7 @@ import React from 'react'
 
 function RoutineViewAndUpdate() {
   return (
-    <div>Routine View & Update</div>
+    <button type="submit" className="btn btn-success mt-2" >Routine View & Update</button>
   )
 }
 

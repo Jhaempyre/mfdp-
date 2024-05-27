@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import LatestUpdateViewAndEdit from './LatestUpdateViewAndEdit'
 import StudentAdmissionPortal from './StudentAdmissionPortal'
 import FeesStructure from './FeesStructure'
@@ -12,34 +12,54 @@ import AttendanceManagement from './AttendanceManagement'
 import InventoryManagement from './InventoryManagement'
 
 function DashboardLayout() {
+  const [selectedItem , setSelectedItem] = useState('');
+
   return (
     <div>
     <div className="grid grid-cols-1 md:grid-cols-4 h-screen">
     <div className="bg-gray-200 p-4 col-span-1">
         <h2 className="text-xl mb-4">MY DASHBOARD</h2>
         <ul>
-            <li className="mb-2"><LatestUpdateViewAndEdit/></li>
-            <li className="mb-2"><StudentAdmissionPortal/></li>
-            <li className="mb-2"><FeesStructure/></li>
-            <li className="mb-2"><EmployeeSalrieStructure/></li>
-            <li className="mb-2"><RoutineViewAndUpdate/></li>
-            <li className="mb-2"><AttendanceManagement/></li>
-            <li className="mb-2"><LibraryManagement/></li>
-            <li className="mb-2"><ResultViewAndUpdate/></li>
-            <li className="mb-2"><TeacherAndEmployeAdmissionPortal/></li>
-            <li className="mb-2"><TeacherAndEpmloyeeAttendance/></li>
-            <li className="mb-2"><InventoryManagement/></li>
+            <li className="mb-2 pt-4  font-bold cursor-pointer text-lg  hover:text-blue-600 active:text-red-800"
+             onClick={() => setSelectedItem('LatestUpdate')}>~Latest Update</li>
 
-            {/* Add more stories as needed */}
+            <li className="mb-2 pt-4 font-bold cursor-pointer text-lg hover:text-blue-600 active:text-red-800"
+             onClick={() => setSelectedItem('Student Admission')}>~Student Admission Portal</li>
+
+            <li className="mb-2 pt-4 font-bold cursor-pointer text-lg hover:text-blue-600 active:text-red-800"
+             onClick={() => setSelectedItem('Fees Structure')}>~Fees Structure</li>
+
+            <li className="mb-2 pt-4 font-bold cursor-pointer text-lg hover:text-blue-600 active:text-red-800"
+             onClick={() => setSelectedItem('Employee Salrie Structure')}>~Employee Salrie Structure</li>
+
+            <li className="mb-2 pt-4 font-bold cursor-pointer text-lg hover:text-blue-600 active:text-red-800"
+             onClick={() => setSelectedItem('Routine View & Update')}>~Routine View & Update</li>
+
+            <li className="mb-2 pt-4 font-bold cursor-pointer text-lg hover:text-blue-600 active:text-red-800"
+             onClick={() => setSelectedItem('Student Attendance')}>~Student Attendance</li>
+
+            <li className="mb-2 pt-4 font-bold cursor-pointer text-lg hover:text-blue-600 active:text-red-800"
+             onClick={() => setSelectedItem('Library Management')}>~Library Management</li>
+
+            <li className="mb-2 pt-4 font-bold cursor-pointer text-lg hover:text-blue-600 active:text-red-800"
+             onClick={() => setSelectedItem('Result View & Update')}>~Result View & Update</li>
+
+            <li className="mb-2 pt-4 font-bold cursor-pointer text-lg hover:text-blue-600 active:text-red-800"
+             onClick={() => setSelectedItem('Employee Admission Portal')}>~Employee Admission Portal</li>
+
+            <li className="mb-2 pt-4 font-bold cursor-pointer text-lg hover:text-blue-600 active:text-red-800"
+             onClick={() => setSelectedItem('Employee Attendance')}>~Employee Attendance</li>
+
+            <li className="mb-2 pt-4 font-bold cursor-pointer text-lg hover:text-blue-600 active:text-red-800"
+             onClick={() => setSelectedItem('Inventory Management')}>~Inventory Management</li>
+
         </ul>
     </div>
     <div className="bg-white p-4 col-span-3">
         {/* Actual story content */}
-        <h2 className="text-2xl mb-4">Story Title</h2>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </p>
+        <h2 className="text-2xl mb-4">{`${selectedItem}`}</h2>
+        {console.log(selectedItem)}
+        <FeesStructure/>
         {/* Add more story content as needed */}
     </div>
 </div>

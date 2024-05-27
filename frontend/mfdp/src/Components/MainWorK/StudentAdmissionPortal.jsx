@@ -2,7 +2,7 @@ import React from 'react'
 
 function StudentAdmissionPortal() {
   return (
-    <div>Student Admission Portal</div>
+    <button type="submit" className="btn btn-success mt-2" >Student Admission Portal</button>
   )
 }
 

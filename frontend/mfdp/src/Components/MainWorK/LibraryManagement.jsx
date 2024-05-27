@@ -2,7 +2,7 @@ import React from 'react'
 
 function LibraryManagement() {
   return (
-    <div>Library Management</div>
+    <button type="submit" className="btn btn-success mt-2" >Library Management</button>
   )
 }
 

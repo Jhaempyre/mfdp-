@@ -2,7 +2,7 @@ import React from 'react'
 
 function TeacherAndEmployeAdmissionPortal() {
   return (
-    <div>Employee Admission Portal</div>
+    <button type="submit" className="btn btn-success mt-2" >Employee Admission Portal</button>
   )
 }
 

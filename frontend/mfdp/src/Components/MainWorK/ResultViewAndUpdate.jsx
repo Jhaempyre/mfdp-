@@ -2,7 +2,7 @@ import React from 'react'
 
 function ResultViewAndUpdate() {
   return (
-    <div>Result View & Update</div>
+    <button type="submit" className="btn btn-success mt-2" >Result View & Update</button>
   )
 }
 

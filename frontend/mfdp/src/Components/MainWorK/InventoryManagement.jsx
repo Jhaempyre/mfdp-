@@ -2,7 +2,7 @@ import React from 'react'
 
 function InventoryManagement() {
   return (
-    <div>Inventory Management</div>
+    <button type="submit" className="btn btn-success mt-2" >Inventory Management</button>
   )
 }
 
