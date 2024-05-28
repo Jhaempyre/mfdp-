@@ -30,7 +30,7 @@ function DashboardLayout() {
              onClick={() => setSelectedItem('Fees Structure')}>~Fees Structure</li>
 
             <li className="mb-2 pt-4 font-bold cursor-pointer text-lg hover:text-blue-600 active:text-red-800"
-             onClick={() => setSelectedItem('Employee Salrie Structure')}>~Employee Salrie Structure</li>
+             onClick={() => setSelectedItem('Employee Salrie Structure')}>~Employee Salries Structure</li>
 
             <li className="mb-2 pt-4 font-bold cursor-pointer text-lg hover:text-blue-600 active:text-red-800"
              onClick={() => setSelectedItem('Routine View & Update')}>~Routine View & Update</li>

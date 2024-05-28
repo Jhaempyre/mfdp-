@@ -8,6 +8,9 @@ import LogIn from './Components/LogIn.jsx'
 import AuthLayout from './Components/AuthLayout.jsx'
 import Dashboard from './Components/DashBoard.jsx'
 import { Toaster } from 'react-hot-toast'
+import SignupPage from './Pages/SignupPage.jsx'
+import LoginPage from './Pages/LoginPage.jsx'
+import DashboardPage from './Pages/DashboardPage.jsx'
 
 
 const router = createBrowserRouter([
@@ -18,16 +21,14 @@ const router = createBrowserRouter([
       {
         path : '/signup',
         element :(
-          <AuthLayout >
-            <SignUp/>
-          </AuthLayout>
+            <SignupPage/>
         )
       },
       {
         path : '/login',
         element : (
           <AuthLayout >
-            <LogIn/>
+            <LoginPage/>
           </AuthLayout>
         )
       },
@@ -35,7 +36,7 @@ const router = createBrowserRouter([
         path : '/dashboard/:username',
         element : (                           
           <AuthLayout >
-                      <Dashboard/>
+                      <DashboardPage/>
            </AuthLayout>
         )
       }
