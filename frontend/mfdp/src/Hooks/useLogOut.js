@@ -12,6 +12,7 @@ const useLogOut = ()=>{
         setLoading(true);
 
         try {
+            adminStore.authStatus(false)
             console.log("Sending Request to backend for Logout")
             const result = await axios.post("/api/v1/admin/logoutAdmin"
                 , {}, {
@@ -27,7 +28,7 @@ const useLogOut = ()=>{
             console.log("DELHI")
             adminStore.logout()
             console.log("clientside")
-            adminStore.authStatus(false)
+            //adminStore.authStatus(false)
             console.log("Cahndi")
             toast.success('Logged Out successfully!');
             navigate(`/login`);

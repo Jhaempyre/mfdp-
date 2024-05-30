@@ -42,6 +42,7 @@ function App() {
           adminData.loggedAdmin(adminData);
           console.log('Admin Data:', adminData);
         } catch (error) {
+          console.log(error.message);
           toast.error(error.message);
         } finally {
           setLoading(false);
