@@ -32,4 +32,7 @@ import adminRouter from "./routes/admin.routes.js"
 
 app.use("/api/v1/admin",adminRouter)
 
+import updateRouter from "./routes/updates.routes.js"
+app.use("/api/v2/update",updateRouter)
+
 export {app}
