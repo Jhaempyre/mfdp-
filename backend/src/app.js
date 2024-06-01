@@ -30,7 +30,9 @@ app.use(express.static("public"))//public asset hae jaha
 
 import adminRouter from "./routes/admin.routes.js"
 import updateRouter from "./routes/updates.routes.js"
+import healthRouter from "./routes/healthcheck.routes.js"
 app.use("/api/v1/admin",adminRouter)
 app.use("/api/v2/update",updateRouter)
+app.use("/api/healthchek",healthRouter)
 
 export {app}
