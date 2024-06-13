@@ -5,7 +5,8 @@ import { registerAdmin ,
         logOutAdmin,
         changePassword , 
         updateRefreshToken,
-        getCurrentUser
+        getCurrentUser,
+        forgetPassword
 } from "../controllers/admin.controllers.js";
 import { authVerify } from "../middlewares/auth.middlewares.js";
 
@@ -26,6 +27,7 @@ router.route("/registerAdmin").post(upload.fields([
 ]),
 registerAdmin)
 router.route("/adminLogin").post(adminLogin)
+router.route("/forgetPassword").post(forgetPassword)
 
 //secured routes
 router.route("/logoutAdmin").post(authVerify,logOutAdmin)

@@ -5,6 +5,8 @@ import {uploadOnCloudinary} from "../utils/cloudinary.js";
 import Admin from "../models/admin.models.js";
 import jwt from "jsonwebtoken";
 import sendEmail from "../utils/sendEmail.js";
+import OTP from "../models/otp.models.js";
+import sendOtpMail from "../utils/sendOtpEmail.js";
 
 const genrateAccessTokenAndRefreshToken = async (userId) => {
     try {
@@ -18,6 +20,33 @@ const genrateAccessTokenAndRefreshToken = async (userId) => {
         throw new ApiError(420, "You are not authorised");
     }
 };
+
+const genrateAccessTokenForPasswordReset= async(finderId)=>{
+    try {
+        console.log(finderId)
+        const OtpKiskaHae = await Admin.findById(finderId);
+        console.log(OtpKiskaHae)
+        if (!OtpKiskaHae)
+             throw new ApiError(404,"invalid user , you are not registered with us.")
+        const pasaccesswoToken = OtpKiskaHae.genrateAccessToken();
+        console.log("pasaccesswoToken",pasaccesswoToken)
+        return pasaccesswoToken;
+    } catch (error) {
+        throw new ApiError(420, "You are not registered with us , please register with us .");
+    }
+}
+
+
+const genrateOtp = function(){
+    const characters = '0123456789' ; 
+    let result = '';
+
+    for (let i = 0; i < 6 ; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters.charAt(randomIndex);
+    }
+    return result ; 
+}
 
 const genrateAdminKey = function (length){
     const  characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+{}|[]\\;\',./';
@@ -259,12 +288,47 @@ const getCurrentUser = asyncHandler(async(req,res)=>{
         "Admin Details fetched Sucessfully"
     ))
 })
+const forgetPassword = asyncHandler(async(req,res)=>{
+    const {email} = req.body
+    if(!email){
+        throw new ApiError(200,"please enter a valid email address")
+    }
+    const success = await Admin.findOne({ email: email });
+    console.log(success)
+    if(!success){
+        throw new ApiError(200,"you are not authorised user , please use valid credentials as Email id and Password"
+        )
+    }
+    const fullname = success.fullname
+    const otp = genrateOtp()
+    const  theOTP = await OTP.create({
+        email,
+        otp
+    })
+    await sendOtpMail(email,otp,fullname)
+    const pasaccesswoToken = genrateAccessTokenForPasswordReset(success._id)
+    const options = {
+        httpOnly : true ,
+        secure : true
+    }
+
+    return res.status(201)
+    .cookie("pasaccesswoToken", pasaccesswoToken, options)
+    .json(
+        new ApiResponse(200,{},"Email validated as Registered User and OTP sent sucessfully.")
+    )
+
+})
+const changeValidatedPassword = asyncHandler(async(req,res)=>{
+    const {otp} = req.bo
+})
 export {registerAdmin,
         adminLogin,
         logOutAdmin,
         changePassword, 
         updateRefreshToken,
-        getCurrentUser
+        getCurrentUser,
+        forgetPassword
 }
 
 

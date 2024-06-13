@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer"
+import { ApiResponse } from "./ApiResponse.js";
 
 const sendEmail = async(email,fullname,accessKey)=>{
     try {
@@ -95,6 +96,8 @@ const sendEmail = async(email,fullname,accessKey)=>{
 
     } catch (error) {
         console.log(error.message)
+        throw new ApiError(500,{
+          error: "Couldn't send mail , Please try again later.innternal server error"})
     }
    
 }
