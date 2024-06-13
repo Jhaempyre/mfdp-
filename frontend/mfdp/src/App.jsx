@@ -18,10 +18,28 @@ function App() {
   const [loading, setLoading] = useState(true);
   const adminData = useAdminStore((state) => state.adminData);
   const authStatus = useAdminStore((state) => state.authStats);
+  const navigate = useNavigate();
   console.log("bhai",adminData)
   console.log("raga",authStatus)
   useEffect(() => {
     const fetchUserData = async () => {
+     try {
+       console.log("connecting to backend for , health chek ")
+       const serverHealthcheck = await axios.get("/api/healthchek/servercheck",{
+ 
+         headers: {
+           'Content-Type': 'application/json',
+           },
+       });
+       console.log("serverHealthcheck",serverHealthcheck)
+       if (serverHealthcheck.data.error) {
+         throw new Error(serverHealthcheck.data.error);
+       }
+       toast.success("server is connected .")
+     } catch (error) {
+      console.log(error.message);
+      toast.error(error.message);
+     }
       if (authStatus) {
         console.log("User is already authenticated");
         setLoading(false);
@@ -51,7 +69,7 @@ function App() {
     };
 
     fetchUserData();
-  }, []);
+  }, [navigate]);
 
   if (authStatus) {
     return (
