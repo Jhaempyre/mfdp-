@@ -331,21 +331,25 @@ const ValidatedOtp = asyncHandler(async(req,res)=>{
     const {otp} = req.body
     console.log(otp)
     const token = req.cookies?.pasaccesswoToken || req.header("Authorization")?.replace("Bearer ","")
-    console.log(token)
+    console.log("token",token)
     if(!token){
         throw new ApiError(400,"Unauthorised request")
     }
     const decodedToken = jwt.verify(token, process.env.PASSWORD_CHANGE_TOKEN_SECRET)
-    console.log(decodedToken)
+    console.log("decoded token",decodedToken)
     const theOtp = decodedToken.otp
     const theEmail = decodedToken.email
      if(theOtp==otp){
         console.log("verified")
      }
-    return res.status(205).json(
-        new ApiResponse(200,{decodedToken},"otp verified now please resset your password.")
-    ) 
+    return res.status(200)
+    .json(
+        new ApiResponse(200,{
+            tokeny:decodedToken
+        },"otp verified now please resset your password.")
+    )
 })
+
 export {registerAdmin,
         adminLogin,
         logOutAdmin,
