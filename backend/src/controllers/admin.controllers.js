@@ -342,6 +342,9 @@ const ValidatedOtp = asyncHandler(async(req,res)=>{
      if(theOtp==otp){
         console.log("verified")
      }
+     else{
+        throw new ApiError(400,"Invalid OTP")
+     }
     return res.status(200)
     .json(
         new ApiResponse(200,{
