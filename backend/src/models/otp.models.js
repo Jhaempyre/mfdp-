@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken'
 
 const otpSchema = new mongoose.Schema({
     email: {
@@ -16,10 +17,9 @@ const otpSchema = new mongoose.Schema({
     }
 });
 
-const OTP = mongoose.model('OTP', otpSchema);
-
-otpSchema.methods.genrateAccessToken = function()
+otpSchema.methods.generateAccessToken = function()
 {
+    console.log("token genrasation")
     return jwt.sign({
         _id:this._id,
         email:this.email,
@@ -29,6 +29,11 @@ otpSchema.methods.genrateAccessToken = function()
         expiresIn:process.env.PASSWORD_CHANGE_EXPIRY
     }
     )
+    
 }
+
+const OTP = mongoose.model('OTP', otpSchema);
+
+
 
 export default OTP;

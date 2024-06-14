@@ -23,12 +23,13 @@ const genrateAccessTokenAndRefreshToken = async (userId) => {
 
 const genrateAccessTokenForPasswordReset= async(finderId)=>{
     try {
-        console.log(finderId)
-        const OtpKiskaHae = await Admin.findById(finderId);
-        console.log(OtpKiskaHae)
-        if (!OtpKiskaHae)
+        const OTp = await OTP.findById(finderId);
+        console.log("otp",OTp)
+        if (!OTp)
              throw new ApiError(404,"invalid user , you are not registered with us.")
-        const pasaccesswoToken = OtpKiskaHae.genrateAccessToken();
+        console.log("server hu mae ")    
+        const pasaccesswoToken = await OTp.generateAccessToken();
+        console.log("raja ram")
         console.log("pasaccesswoToken",pasaccesswoToken)
         return pasaccesswoToken;
     } catch (error) {
@@ -305,8 +306,13 @@ const forgetPassword = asyncHandler(async(req,res)=>{
         email,
         otp
     })
+    const theId = theOTP._id
     await sendOtpMail(email,otp,fullname)
-    const pasaccesswoToken = genrateAccessTokenForPasswordReset(success._id)
+    console.log("sita ram")
+    const pasaccesswoToken = await genrateAccessTokenForPasswordReset(theId)
+    console.log("janki",pasaccesswoToken)
+    console.log("jaanki raani")
+    
     const options = {
         httpOnly : true ,
         secure : true
@@ -315,12 +321,30 @@ const forgetPassword = asyncHandler(async(req,res)=>{
     return res.status(201)
     .cookie("pasaccesswoToken", pasaccesswoToken, options)
     .json(
-        new ApiResponse(200,{},"Email validated as Registered User and OTP sent sucessfully.")
+        new ApiResponse(200,{
+            token : pasaccesswoToken
+        },"Email validated as Registered User and OTP sent sucessfully.")
     )
 
 })
-const changeValidatedPassword = asyncHandler(async(req,res)=>{
-    const {otp} = req.bo
+const ValidatedOtp = asyncHandler(async(req,res)=>{
+    const {otp} = req.body
+    console.log(otp)
+    const token = req.cookies?.pasaccesswoToken || req.header("Authorization")?.replace("Bearer ","")
+    console.log(token)
+    if(!token){
+        throw new ApiError(400,"Unauthorised request")
+    }
+    const decodedToken = jwt.verify(token, process.env.PASSWORD_CHANGE_TOKEN_SECRET)
+    console.log(decodedToken)
+    const theOtp = decodedToken.otp
+    const theEmail = decodedToken.email
+     if(theOtp==otp){
+        console.log("verified")
+     }
+    return res.status(205).json(
+        new ApiResponse(200,{decodedToken},"otp verified now please resset your password.")
+    ) 
 })
 export {registerAdmin,
         adminLogin,
@@ -328,7 +352,8 @@ export {registerAdmin,
         changePassword, 
         updateRefreshToken,
         getCurrentUser,
-        forgetPassword
+        forgetPassword,
+        ValidatedOtp
 }
 
 
