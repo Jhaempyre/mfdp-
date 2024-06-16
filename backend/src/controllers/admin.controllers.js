@@ -354,9 +354,26 @@ const ValidatedOtp = asyncHandler(async(req,res)=>{
 })
 
 const changeforgettonPassword = asyncHandler(async(req,res)=>{
-    const {password} = req.body
-    const {email} = req.email
+    const {newPassword} = req.body
+    const email = req.email
     console.log("email",email)
+    const User = await Admin.findOne({ email: email });
+    if (!User){
+        throw new ApiError(404,"Couldn't find User")
+    }
+    User.password = newPassword
+    await User.save({validateBeforeSave: false})
+    const options = {
+        httpOnly: true,
+        secure: true
+    }
+    return res.status(200)
+    .clearCookie("pasaccesswoToken", options)
+    .json(new ApiResponse(
+        200,
+        {},
+        "Password changed successfully"
+    ))
     
 })
 
@@ -367,7 +384,8 @@ export {registerAdmin,
         updateRefreshToken,
         getCurrentUser,
         forgetPassword,
-        ValidatedOtp
+        ValidatedOtp,
+        changeforgettonPassword
 }
 
 

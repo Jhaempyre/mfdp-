@@ -7,9 +7,12 @@ import { registerAdmin ,
         updateRefreshToken,
         getCurrentUser,
         forgetPassword,
-        ValidatedOtp
+        ValidatedOtp,
+        changeforgettonPassword
 } from "../controllers/admin.controllers.js";
 import { authVerify } from "../middlewares/auth.middlewares.js";
+import { userVerify } from "../middlewares/forgetPasswordauth.middlewares.js";
+
 
 const router = Router()
 
@@ -33,8 +36,9 @@ router.route("/ValidatedOtp").post(ValidatedOtp)
 
 //secured routes
 router.route("/logoutAdmin").post(authVerify,logOutAdmin)
-router.route("/changePassword").post(authVerify,changePassword)
+router.route("/updatePassword").post(authVerify,changePassword)
 router.route("/refreshTokens").post(authVerify,updateRefreshToken)
 router.route("/getUser").get(authVerify,getCurrentUser)
+router.route("/changePassword").post(userVerify,changeforgettonPassword)
 
 export default router

@@ -15,8 +15,10 @@ const userVerify = asyncHandler(async(req,res,next)=>{
         throw new ApiError(400 , "Access Denied")
     }
     console.log("decoded middleware token",decodedToken)
-    const email = decodedToken.email
-    req.email = email
+    const emailId = decodedToken.email
+    console.log("middle",emailId)
+    req.email = emailId
+    console.log("request",req.email)
     next()
     } catch (error) {
         throw new ApiError(401, error?.message || "Invalid access token")    
