@@ -234,7 +234,7 @@ const logOutAdmin = asyncHandler(async(req,res)=>{
    .json(new ApiResponse(200, {}, "Admin logged Out"))
 })
 const changePassword = asyncHandler(async(req,res)=>{
-    const {oldPassword, newPassword,newConsfirmPassword} = req.body
+    const {oldPassword, newPassword} = req.body
     const User = await Admin.findById(req.theAdmin?._id);
     if (!User){
         throw new ApiError(404,"User not found")
