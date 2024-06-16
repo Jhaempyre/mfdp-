@@ -12,6 +12,7 @@ import SignupPage from './Pages/SignupPage.jsx'
 import LoginPage from './Pages/LoginPage.jsx'
 import DashboardPage from './Pages/DashboardPage.jsx'
 import VerifyUserPage from './Pages/VerifyUserPage.jsx'
+import SettingsPage from "./Pages/SettingsPage.jsx"
 
 
 const router = createBrowserRouter([
@@ -45,6 +46,12 @@ const router = createBrowserRouter([
         path : '/verifyUser',
         element :(
           <VerifyUserPage/>
+        )
+      },
+      {
+        path : '/set-settings',
+        element:(
+          <SettingsPage/>
         )
       }
     ]

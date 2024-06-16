@@ -70,8 +70,7 @@ const LogIn = () => {
         <button type="submit" className="btn btn-success mt-2" >Log in </button>         
           </form>  
 
-    </div>
-    
+    </div> 
     </div>
   )
 }

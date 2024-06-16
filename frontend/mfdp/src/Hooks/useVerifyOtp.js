@@ -17,6 +17,11 @@ const useVerifyOtp = ()=>{
                       'Content-Type': 'application/json',
                       },
                      });
+            if(response){
+                console.log("ram")
+            }else{
+                console.log("shyam")
+            }         
             console.log('Response:', response);
             console.log('Data:', response.data);
             if (response.data.error) {

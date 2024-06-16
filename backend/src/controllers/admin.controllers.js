@@ -235,16 +235,19 @@ const logOutAdmin = asyncHandler(async(req,res)=>{
 })
 const changePassword = asyncHandler(async(req,res)=>{
     const {oldPassword, newPassword} = req.body
+    console.log(oldPassword,newPassword)
     const User = await Admin.findById(req.theAdmin?._id);
     if (!User){
         throw new ApiError(404,"User not found")
     }
     // chek if password is correct
+    console.log("server run")
     const validation = await User.isPasswordCorrect(oldPassword)
     // chekckung the validation 
     if (!validation){
         return res.status(400).json(new ApiResponse(400, {}, "Old Password is incorrect"))
     }
+    console.log("client run")
     //update password to database and get user 
     User.password = newPassword
     await User.save({validateBeforeSave: false})
