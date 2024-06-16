@@ -353,6 +353,13 @@ const ValidatedOtp = asyncHandler(async(req,res)=>{
     )
 })
 
+const changeforgettonPassword = asyncHandler(async(req,res)=>{
+    const {password} = req.body
+    const {email} = req.email
+    console.log("email",email)
+    
+})
+
 export {registerAdmin,
         adminLogin,
         logOutAdmin,

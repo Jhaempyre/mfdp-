@@ -11,6 +11,7 @@ import { Toaster } from 'react-hot-toast'
 import SignupPage from './Pages/SignupPage.jsx'
 import LoginPage from './Pages/LoginPage.jsx'
 import DashboardPage from './Pages/DashboardPage.jsx'
+import VerifyUserPage from './Pages/VerifyUserPage.jsx'
 
 
 const router = createBrowserRouter([
@@ -38,6 +39,12 @@ const router = createBrowserRouter([
           <AuthLayout >
                       <DashboardPage/>
            </AuthLayout>
+        )
+      },
+      {
+        path : '/verifyUser',
+        element :(
+          <VerifyUserPage/>
         )
       }
     ]

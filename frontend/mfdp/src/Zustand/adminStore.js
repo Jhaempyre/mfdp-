@@ -21,6 +21,8 @@ const useAdminStore = create(
           updatedAt: '',
         },
         authStats: false,
+        passwordtoken : "",
+        otpVerified : false,
         loggedAdmin: (data) => set({
           adminData: data
         }),
@@ -44,8 +46,18 @@ const useAdminStore = create(
         
         authStatus : (data) => set({
           authStats : data
-        })
+        }) ,
 
+        TokenStatus : (data) =>set({
+          passwordtoken : data
+        }),
+        
+        RemoveToken :(data)=>set({
+          passwordtoken : ""
+        }),
+        otpverify : (data) => set({
+          otpVerified : data
+        })
       }),
       {
         name: 'admin',

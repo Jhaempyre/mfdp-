@@ -28,7 +28,7 @@ const useLogOut = ()=>{
             console.log("DELHI")
             adminStore.logout()
             console.log("clientside")
-            //adminStore.authStatus(false)
+            adminStore.authStatus(false)
             console.log("Cahndi")
             toast.success('Logged Out successfully!');
             navigate(`/login`);

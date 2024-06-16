@@ -40,7 +40,7 @@ function App() {
       console.log(error.message);
       toast.error(error.message);
      }
-      if (authStatus) {
+      /*if (authStatus) {
         console.log("User is already authenticated");
         setLoading(false);
       } else {
@@ -53,7 +53,7 @@ function App() {
           });
           console.log('Response:', response);
 
-          if (response.data.error) {
+          if (response.data.error) {                   //not needed right now we are working on this feature 
             throw new Error(response.data.error);
           }
           const adminData = response.data.data.Admin;
@@ -65,7 +65,7 @@ function App() {
         } finally {
           setLoading(false);
         }
-      }
+      }*/
     };
 
     fetchUserData();
