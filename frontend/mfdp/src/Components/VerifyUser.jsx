@@ -3,15 +3,19 @@ import useAdminStore from '../Zustand/adminStore.js';
 import toast, { Toaster } from 'react-hot-toast';
 import useVerifyUser from '../Hooks/useVerifyUser.js';
 import useVerifyOtp from '../Hooks/useVerifyOtp.js';
+import useChangePassword from '../Hooks/useChangePassword.js';
 
 function VerifyUser() {
   const [inputs, setInputs] = useState({
     email: "",
-    otp: ""
+    otp: "" ,
+    newPassword:"",
+    confirmPassword :""
   });
 
   const { verifyUser, loading } = useVerifyUser();
   const {verifyOtp,loadin} = useVerifyOtp();
+  const {useChange,loadeng} = useChangePassword()
   const adminStore = useAdminStore();
 
   const handleEmailSubmit = async (e) => {
@@ -24,6 +28,16 @@ function VerifyUser() {
     await verifyOtp(inputs.otp);
     toast.success('OTP verified successfully');
   };
+
+  const handlePasswordChangeSubmit =async(e)=>{
+    e.preventDefault();
+    if(inputs.newPassword==inputs.confirmPassword){
+      await useChange(inputs.newPassword);
+    toast.success("password changed succesfully.")}
+    else{
+      toast.error("passwords do not match")
+    }
+  }
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-500">
@@ -85,6 +99,35 @@ function VerifyUser() {
             Please change your <span style={{ color: 'red' }}>Password</span>
           </h2>
           <hr />
+          <label className="form-control w-full max-w-xs">
+              <div className="label">
+                <span className="label-text text-gray-800">Enter New Password</span>
+              </div>
+              <input
+                type="password"
+                placeholder="Enter your password"
+                className="input input-bordered w-full max-w-xs"
+                value={inputs.newPassword}
+                onChange={(e) => setInputs({ ...inputs, newPassword: e.target.value })}
+              />
+              <div className="label"></div>
+            </label>
+            <label className="form-control w-full max-w-xs">
+              <div className="label">
+                <span className="label-text text-gray-800">Re-Enter new Password</span>
+              </div>
+              <input
+                type="password"
+                placeholder="Confirfm New Password"
+                className="input input-bordered w-full max-w-xs"
+                value={inputs.confirmPassword}
+                onChange={(e) => setInputs({ ...inputs, confirmPassword: e.target.value })}
+              />
+              <div className="label"></div>
+            </label>
+            <button onClick={handlePasswordChangeSubmit} className="btn btn-primary bg-red-500 hover:bg-red-700 mt-1 ">
+              Change Password
+            </button>
         </div>)}
       </div>
     </div>
