@@ -48,7 +48,47 @@ const getAllUpdates = asyncHandler(async(req,res)=>{
         new ApiResponse(200, allUpdates.allUpdates, "All updates fetched successfully")
     );
 })
+const editUpdate = asyncHandler(async(req,res)=>{
+    console.log("Got edit request from frontend")
+    const {id,message,tittle,schoolUniqueCodex} = req.body
+    const schoolUniqueCode = req.theAdmin?.schoolUniqueCode
+    if(!message&&!tittle&&!schoolUniqueCodex){
+        throw new ApiError(400, "All fields are required ")
+    }
+    if(schoolUniqueCode!=schoolUniqueCodex){
+        throw new ApiError(400, "You are not authorized to edit this update")
+    }
+    const newUpdate = await Update.findByIdAndUpdate(id,{
+        
+        $set :{
+            tittle:tittle,
+            message:message
+        }
+        },
+        {
+            new: true,
+        }
+        )
+    
+        return res.status(200)
+        .json(
+            new ApiResponse(
+                200,
+                {
+                    newUpdate
+                },
+                " Details updated succesfully"
+    
+            )
+            )
+    })
+
 export {
     addUpdate,
-    getAllUpdates
+    getAllUpdates,
+    editUpdate
 }
+
+
+/*
+*/

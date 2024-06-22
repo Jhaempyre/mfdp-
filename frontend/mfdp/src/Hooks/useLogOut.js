@@ -31,6 +31,7 @@ const useLogOut = ()=>{
             adminStore.authStatus(false)
             console.log("Cahndi")
             toast.success('Logged Out successfully!');
+            console.log("Logout ho gya dalla ")
             navigate(`/login`);
             
         } catch (error) {
