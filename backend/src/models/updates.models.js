@@ -4,7 +4,6 @@ const updateSchema = new Schema ({
     schoolUniqueCode:{
         type:String,
         required:true,
-        unique:true
     },
     message:{
         type:String,

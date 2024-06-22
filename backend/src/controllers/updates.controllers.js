@@ -59,7 +59,7 @@ const editUpdate = asyncHandler(async(req,res)=>{
         throw new ApiError(400, "You are not authorized to edit this update")
     }
     const newUpdate = await Update.findByIdAndUpdate(id,{
-        
+
         $set :{
             tittle:tittle,
             message:message
@@ -82,11 +82,33 @@ const editUpdate = asyncHandler(async(req,res)=>{
             )
             )
     })
+const deleteUpdate = asyncHandler(async(req,res)=>{
+    console.log("Got delete request from frontend")
+    const {id,schoolUniqueCodex} = req.body
+    if(!(id&&schoolUniqueCodex)){
+        throw new ApiError(400, "All fields are required ")
+    }
+    const schoolUniqueCode = req.theAdmin?.schoolUniqueCode
+    if(schoolUniqueCode!=schoolUniqueCodex){
+        throw new ApiError(400, "You are not authorized to delete this update")
+        }
+    const noUpdate = await Update.findByIdAndDelete(id)
+    console.log(noUpdate)
+    
+    return res.status(200)
+    .json(
+        new ApiResponse(
+            200,
+            {},
+            " Details updated succesfully"
 
+        ))
+    })
 export {
     addUpdate,
     getAllUpdates,
-    editUpdate
+    editUpdate,
+    deleteUpdate
 }
 
 
