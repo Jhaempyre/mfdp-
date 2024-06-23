@@ -2,9 +2,7 @@ import React from 'react'
 
 function EmployeeSalrieStructure() {
   return (
-    <div>
-        <button >EmployeeSalrieStructure</button>
-    </div>
+    <button type="submit" className="btn btn-success mt-2" >Employee Salarie Structure </button>
   )
 }
 

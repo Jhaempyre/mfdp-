@@ -2,7 +2,7 @@ import React from 'react'
 
 function TeacherAndEpmloyeeAttendance() {
   return (
-    <button>Employee Attendance</button>
+    <button type="submit" className="btn btn-success mt-2" >Employee Attendance</button>
   )
 }
 

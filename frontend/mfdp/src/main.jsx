@@ -13,6 +13,7 @@ import LoginPage from './Pages/LoginPage.jsx'
 import DashboardPage from './Pages/DashboardPage.jsx'
 import VerifyUserPage from './Pages/VerifyUserPage.jsx'
 import SettingsPage from "./Pages/SettingsPage.jsx"
+import LatestUpdateViewAndEditPage from './Pages/LatestUpdateViewAndEditPage.jsx'
 
 
 const router = createBrowserRouter([
@@ -41,6 +42,12 @@ const router = createBrowserRouter([
                       <DashboardPage/>
            </AuthLayout>
         )
+      },
+      {
+        path : '/dashboard/:username/LatestUpdate',
+        element : (                           
+                <LatestUpdateViewAndEditPage/>
+          )
       },
       {
         path : '/verifyUser',
