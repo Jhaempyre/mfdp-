@@ -30,6 +30,7 @@ const useLogOut = ()=>{
             console.log("clientside")
             adminStore.authStatus(false)
             console.log("Cahndi")
+            adminStore.pageStatus("Latest_Update")
             toast.success('Logged Out successfully!');
             console.log("Logout ho gya dalla ")
             navigate(`/login`);

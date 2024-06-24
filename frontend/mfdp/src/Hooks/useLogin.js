@@ -1,7 +1,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
-import useAdminStore from "../Zustand/adminStore";
+import useAdminStore from "../Zustand/adminStore.js";
 import { useNavigate } from "react-router-dom";
 
 const useLogIn = () => {
@@ -38,7 +38,7 @@ const useLogIn = () => {
             console.log('Admin Data:', adminData);
             adminStore.authStatus(true)
             toast.success('Logged in successfully!');
-            navigate(`/dashboard/${adminData.username}`);
+            navigate(`/dashboard/${adminStore.currentPage}/${adminData.username}`);
             toast.success("Logged in Successfully");
         } catch (error) {
             toast.error(error.message);
