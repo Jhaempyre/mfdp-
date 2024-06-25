@@ -6,5 +6,4 @@ const SettingsPage = () => {
     <Settings/>
   )
 }
-
 export default SettingsPage

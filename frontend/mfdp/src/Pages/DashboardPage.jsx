@@ -3,9 +3,7 @@ import DashBoard from '../Components/DashBoard.jsx'
 
 function DashboardPage() {
   return (
-    
-    <DashBoard />
-    
+    <DashBoard /> 
   )
 }
 

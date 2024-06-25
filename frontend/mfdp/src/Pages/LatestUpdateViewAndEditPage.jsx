@@ -8,6 +8,12 @@ function LatestUpdateViewAndEditPage() {
   const adminData = useAdminStore((state) => state.adminData);
   const navigate = useNavigate();
   const adminStore = useAdminStore();
+   const onclickNavigation= (page)=>{
+    setSelectedItem(page)
+    console.log(selectedItem)
+    adminStore.pageStatus(page)
+    navigate(`/dashboard/${page}/${adminData.username}`)}
+   
   return (
     <div>
     <div className="grid grid-cols-1 md:grid-cols-4 h-screen">
@@ -20,7 +26,7 @@ function LatestUpdateViewAndEditPage() {
       ? 'text-red-800' 
       : 'hover:text-blue-600'
     }`}
-  onClick={() => setSelectedItem('Latest_Update')}
+  onClick={() => onclickNavigation('Latest_Update')}
 >
   ~Latest Update
 </li>
@@ -49,7 +55,7 @@ function LatestUpdateViewAndEditPage() {
 
 <li className={`mb-2 pt-4 font-bold cursor-pointer text-lg 
   ${selectedItem === 'Employee_Salrie_Structure' ? 'text-red-800' : 'hover:text-blue-600'}`}
-  onClick={() => setSelectedItem('Employee_Salrie_Structure')}>
+  onClick={() => (onclickNavigation('Employee_Salrie_Structure'))}>
   ~Employee Salries Structure
 </li>
 
@@ -66,43 +72,43 @@ function LatestUpdateViewAndEditPage() {
 
 <li className={`mb-2 pt-4 font-bold cursor-pointer text-lg 
   ${selectedItem === 'Routine_View_Update' ? 'text-red-800' : 'hover:text-blue-600'}`}
-  onClick={() => setSelectedItem('Routine_View_Update')}>
+  onClick={() => onclickNavigation('Routine_View_Update')}>
   ~Routine View & Update
 </li>
 
 <li className={`mb-2 pt-4 font-bold cursor-pointer text-lg 
   ${selectedItem === 'Student_Attendance' ? 'text-red-800' : 'hover:text-blue-600'}`}
-  onClick={() => setSelectedItem('Student_Attendance')}>
+  onClick={() => onclickNavigation('Student_Attendance')}>
   ~Student Attendance
 </li>
 
 <li className={`mb-2 pt-4 font-bold cursor-pointer text-lg 
   ${selectedItem === 'Library_Management' ? 'text-red-800' : 'hover:text-blue-600'}`}
-  onClick={() => setSelectedItem('Library_Management')}>
+  onClick={() => onclickNavigation('Library_Management')}>
   ~Library Management
 </li>
 
 <li className={`mb-2 pt-4 font-bold cursor-pointer text-lg 
   ${selectedItem === 'Result_View_Update' ? 'text-red-800' : 'hover:text-blue-600'}`}
-  onClick={() => setSelectedItem('Result_View_Update')}>
+  onClick={() => onclickNavigation('Result_View_Update')}>
   ~Result View & Update
 </li>
 
 <li className={`mb-2 pt-4 font-bold cursor-pointer text-lg 
   ${selectedItem === 'Employee_Admission_Portal' ? 'text-red-800' : 'hover:text-blue-600'}`}
-  onClick={() => setSelectedItem('Employee_Admission_Portal')}>
+  onClick={() => onclickNavigation('Employee_Admission_Portal')}>
   ~Employee Admission Portal
 </li>
 
 <li className={`mb-2 pt-4 font-bold cursor-pointer text-lg 
   ${selectedItem === 'Employee_Attendance' ? 'text-red-800' : 'hover:text-blue-600'}`}
-  onClick={() => setSelectedItem('Employee_Attendance')}>
+  onClick={() => onclickNavigation('Employee_Attendance')}>
   ~Employee Attendance
 </li>
 
 <li className={`mb-2 pt-4 font-bold cursor-pointer text-lg 
   ${selectedItem === 'Inventory_Management' ? 'text-red-800' : 'hover:text-blue-600'}`}
-  onClick={() => setSelectedItem('Inventory_Management')}>
+  onClick={() => onclickNavigation('Inventory_Management')}>
   ~Inventory Management
 </li>
 </ul>

@@ -7,5 +7,4 @@ function VerifyUserPage() {
     <VerifyUser/>
   )
 }
-
 export default VerifyUserPage
