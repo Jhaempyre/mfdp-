@@ -8,7 +8,7 @@ function LatestUpdateViewAndEditPage() {
   const adminData = useAdminStore((state) => state.adminData);
   const navigate = useNavigate();
   const adminStore = useAdminStore();
-   const onclickNavigation= (page)=>{
+  const onclickNavigation= (page)=>{
     setSelectedItem(page)
     console.log(selectedItem)
     adminStore.pageStatus(page)
