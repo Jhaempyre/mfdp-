@@ -4,17 +4,29 @@ import useUpdateStore from "../../Zustand/updateStore";
 import toast from "react-hot-toast";
 import useAdminStore from '../../Zustand/adminStore';
 import useAddUpdate from '../../Hooks/useAddUpdate';
+import useEditUpdate from '../../Hooks/useEditUpdate';
+import useDeleteUpdate from '../../Hooks/useDeleteUpdate';
 
 
 function LatestUpdateViewAndEdit() {
   const [isOpen, setIsOpen] = useState(false);
   const adminStore = useAdminStore()
   const updateStore = useUpdateStore()
+  const adminData = useAdminStore((state) => state.adminData);
   const updatedData = useUpdateStore((state)=>state.updates)
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isEditReq,setIsEditReq] = useState(false)
+  const [Edits,setEdits] = useState({
+                              tittle : '',
+                              message : '',
+                              id : '',
+                              schoolUniqueCodex: ''
+                                          })
   const [newUpdate, setNewUpdate] = useState({ tittle: '', message: '' });
   const {loading , addUpdate} = useAddUpdate()
-  // Dummy update data in your format
+  const {loadin,editUpdate}= useEditUpdate()
+  const {loadeng,deleteUpdate} = useDeleteUpdate()
+  // Dummy update data in your format is dumped now 😂😂😂😂
   console.log("seedha",updatedData[0])
   const dataToShow = updatedData[0].slice().sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
   console.log(dataToShow.reverse())
@@ -43,20 +55,47 @@ function LatestUpdateViewAndEdit() {
       }
     };
     fetchAllUpdate();
-  },[adminStore.currentPage])
+  },[adminStore.currentPage,loading,loadin,loadeng])
 
-  const handleEdit = (id) => {
-    console.log('Edit Update clicked for id:', id);
+  const handleEdit = (xyz) => {
+    console.log('Edit Update clicked for id:', xyz);
+    setEdits({
+      id : xyz,
+      schoolUniqueCodex : adminData.schoolUniqueCode
+    })
+    setIsEditReq(true)
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async(id) => {
     console.log('Delete Update clicked for id:', id);
+    const del = {id,
+      schoolUniqueCodex : adminData.schoolUniqueCode
+    }
+    console.log(del)
+    await deleteUpdate(del)
   };
 
   const handleDialogClose = () => {
     setIsDialogOpen(false);
     setNewUpdate({ tittle: '', message: '' });
   };
+
+  const handleEditDialogClose = ()=> {
+    setIsEditReq(false);
+    setEdits({
+      tittle : '',
+      message : '',
+      id : '',
+      schoolUniqueCodex:''
+    })
+  }
+
+  
+  const handleEditInputChange = (e) => {
+    const { name, value } = e.target;
+    setEdits(prev => ({ ...prev, [name]: value }));
+  };
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -75,6 +114,13 @@ function LatestUpdateViewAndEdit() {
     setIsDialogOpen(true);
     // Implement the logic to add a new update here
   };
+
+  const handleEditSubmit = async(e)=>{
+    e.preventDefault()
+    console.log("Edit requested for this one ",Edits)
+    await editUpdate(Edits)
+    handleEditDialogClose()
+  }
 
   // Function to format the date
   const formatDate = (dateString) => {
@@ -193,6 +239,58 @@ function LatestUpdateViewAndEdit() {
           </div>
         </div>
       )}
+
+      {isEditReq && (<div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full" id="my-modal">
+          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div className="mt-3 text-center">
+              <h3 className="text-lg leading-6 font-medium text-gray-900">Add New Update</h3>
+              <form onSubmit={handleEditSubmit} className="mt-2 text-left">
+                <div className="mb-4">
+                  <label htmlFor="tittle" className="block text-gray-700 text-sm font-bold mb-2">Title</label>
+                  <input 
+                    type="text" 
+                    id="tittle" 
+                    name="tittle"
+                    value={Edits.tittle}
+                    onChange={handleEditInputChange}
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-white bg-black leading-tight focus:outline-none focus:shadow-outline"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="message" className="block text-gray-700 text-sm font-bold mb-2">Message</label>
+                  <textarea 
+                    id="message" 
+                    name="message"
+                    value={Edits.message}
+                    onChange={handleEditInputChange}
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-white bg-black leading-tight focus:outline-none focus:shadow-outline"
+                    rows="3"
+                    required
+                  ></textarea>
+                </div>
+                <div className="flex items-center justify-between">
+                  <button 
+                    type="submit"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  >
+                    Submit
+                  </button>
+                  <button 
+                    type="button"
+                    onClick={handleEditDialogClose}
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )
+
+      }
     </div>
   );
 }

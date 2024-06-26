@@ -1,41 +1,39 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
-import useUpdateStore from "../Zustand/updateStore";
+import useAdminStore from "../Zustand/adminStore";
 
-const useAddUpdate = ()=>{
-    const updateStore = useUpdateStore()
-    const updatedData = useUpdateStore((state)=>state.updates)
-    const [loading,setLoading] = useState(false)
+const useDeleteUpdate = ()=>{
+    const [loadeng,setLoading] = useState(false)
 
-    const addUpdate = async(newUpdate)=>{
+
+    const deleteUpdate = async(del)=>{
         setLoading(true)
         try {
-            console.log("Requesting backend for the add new update")
+            console.log("Sendig request to backend for Deleting the update")
             const response = await axios.post(
-                "/api/v2/update/addUpdate",
-                newUpdate,
+                "/api/v2/update/deleteUpdate",
+                del,
                 {
                     headers: {
                         'Content-Type': 'application/json',
                     },
                 }
-            );
+            )
             console.log('Response:', response);
             console.log('Data',response.data)
             if (response.data.error) {
                 throw new Error(response.data.error);
             }
-            toast.success("Update Updated  Successfully");
+            toast.success("Update Deleted Successfully");
         } catch (error) {
             console.log(error.message)
             toast.error(error.message)
         }finally{
             setLoading(false);
-        }
+    }
     };
+    return {deleteUpdate,loadeng}
 
-    return {loading,addUpdate}
 }
-
-export default useAddUpdate ;
+export default useDeleteUpdate;

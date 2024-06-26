@@ -85,7 +85,7 @@ const editUpdate = asyncHandler(async(req,res)=>{
 const deleteUpdate = asyncHandler(async(req,res)=>{
     console.log("Got delete request from frontend")
     const {id,schoolUniqueCodex} = req.body
-    if(!(id&&schoolUniqueCodex)){
+    if((!id&&!schoolUniqueCodex)){
         throw new ApiError(400, "All fields are required ")
     }
     const schoolUniqueCode = req.theAdmin?.schoolUniqueCode
