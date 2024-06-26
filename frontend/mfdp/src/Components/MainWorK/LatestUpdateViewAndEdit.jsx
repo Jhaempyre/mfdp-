@@ -16,7 +16,7 @@ function LatestUpdateViewAndEdit() {
   const {loading , addUpdate} = useAddUpdate()
   // Dummy update data in your format
   console.log("seedha",updatedData[0])
-  const dataToShow = updatedData[0]
+  const dataToShow = updatedData[0].slice().sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
   console.log(dataToShow.reverse())
   useEffect(()=>{
     const fetchAllUpdate = async()=>{
@@ -105,7 +105,7 @@ function LatestUpdateViewAndEdit() {
         {isOpen && (
           <div className="mt-3">
             <div className="p-4 bg-gray-100 rounded-lg">
-              {dataToShow.reverse().map((update) => (
+              {dataToShow.map((update) => (
                 <div key={update._id} className="mb-4 p-4 bg-white rounded shadow">
                   <div className="flex justify-between items-center mb-2">
                     <h2 className="font-semibold text-lg">{update.tittle}</h2>
