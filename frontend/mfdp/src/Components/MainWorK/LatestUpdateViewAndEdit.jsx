@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import useUpdateStore from "../../Zustand/updateStore";
 import toast from "react-hot-toast";
 import useAdminStore from '../../Zustand/adminStore';
+import useAddUpdate from '../../Hooks/useAddUpdate';
 
 
 function LatestUpdateViewAndEdit() {
@@ -10,9 +11,13 @@ function LatestUpdateViewAndEdit() {
   const adminStore = useAdminStore()
   const updateStore = useUpdateStore()
   const updatedData = useUpdateStore((state)=>state.updates)
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [newUpdate, setNewUpdate] = useState({ tittle: '', message: '' });
+  const {loading , addUpdate} = useAddUpdate()
   // Dummy update data in your format
   console.log("seedha",updatedData[0])
   const dataToShow = updatedData[0]
+  console.log(dataToShow.reverse())
   useEffect(()=>{
     const fetchAllUpdate = async()=>{
       try {
@@ -48,8 +53,26 @@ function LatestUpdateViewAndEdit() {
     console.log('Delete Update clicked for id:', id);
   };
 
+  const handleDialogClose = () => {
+    setIsDialogOpen(false);
+    setNewUpdate({ tittle: '', message: '' });
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewUpdate(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    console.log("added update",newUpdate)
+    await addUpdate(newUpdate)
+    handleDialogClose();
+  };
+
   const handleAddNew = () => {
     console.log('Add New Update clicked');
+    setIsDialogOpen(true);
     // Implement the logic to add a new update here
   };
 
@@ -82,7 +105,7 @@ function LatestUpdateViewAndEdit() {
         {isOpen && (
           <div className="mt-3">
             <div className="p-4 bg-gray-100 rounded-lg">
-              {dataToShow.map((update) => (
+              {dataToShow.reverse().map((update) => (
                 <div key={update._id} className="mb-4 p-4 bg-white rounded shadow">
                   <div className="flex justify-between items-center mb-2">
                     <h2 className="font-semibold text-lg">{update.tittle}</h2>
@@ -110,8 +133,8 @@ function LatestUpdateViewAndEdit() {
           </div>
         )}
       </div>
-    </div>
-    <h1 className='pl-6'>Add New Update</h1>
+   </div>
+   {/* <h1 className='pl-6'>Add New Update</h1>
     <div className='p-6 w-[70vw] mx-auto bg-white rounded-xl shadow-md relative'>
         <div>
           <div>
@@ -119,9 +142,58 @@ function LatestUpdateViewAndEdit() {
           </div>
           <button className="btn btn-accent">Add Update</button>
         </div>
-    </div>
+    </div>*/}
+          {isDialogOpen && (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full" id="my-modal">
+          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div className="mt-3 text-center">
+              <h3 className="text-lg leading-6 font-medium text-gray-900">Add New Update</h3>
+              <form onSubmit={handleSubmit} className="mt-2 text-left">
+                <div className="mb-4">
+                  <label htmlFor="tittle" className="block text-gray-700 text-sm font-bold mb-2">Title</label>
+                  <input 
+                    type="text" 
+                    id="tittle" 
+                    name="tittle"
+                    value={newUpdate.tittle}
+                    onChange={handleInputChange}
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-white bg-black leading-tight focus:outline-none focus:shadow-outline"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="message" className="block text-gray-700 text-sm font-bold mb-2">Message</label>
+                  <textarea 
+                    id="message" 
+                    name="message"
+                    value={newUpdate.message}
+                    onChange={handleInputChange}
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-white bg-black leading-tight focus:outline-none focus:shadow-outline"
+                    rows="3"
+                    required
+                  ></textarea>
+                </div>
+                <div className="flex items-center justify-between">
+                  <button 
+                    type="submit"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  >
+                    Submit
+                  </button>
+                  <button 
+                    type="button"
+                    onClick={handleDialogClose}
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
-
 export default LatestUpdateViewAndEdit;
