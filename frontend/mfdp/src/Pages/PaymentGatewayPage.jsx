@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import PaymnetGateway from '../Components/MainWorK/PaymnetGateway'
 import useAdminStore from '../Zustand/adminStore';
 import { useNavigate } from 'react-router-dom';
+import backgroundImage from '../assets/backPic.jpg';
 
 function PaymentGatewayPage() {
   const [selectedItem , setSelectedItem] = useState('Payment_Gateway');
@@ -98,11 +99,19 @@ function PaymentGatewayPage() {
 </ul>
   </div>
   {selectedItem === 'Payment_Gateway' && (
-    <div className="bg-white p-4 col-span-3">
-      <h2 className="text-2xl mb-4">{selectedItem}</h2>
-      <PaymnetGateway/>
-    </div>
-  )}
+  <div 
+    className="p-4 col-span-3"
+    style={{
+      backgroundImage:`url(${backgroundImage})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat'
+    }}
+  >
+    <h2 className="text-2xl mb-4">{selectedItem}</h2>
+    <PaymnetGateway/>
+  </div>
+)}
   </div>
   </div>
   )
