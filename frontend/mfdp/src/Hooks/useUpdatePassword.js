@@ -26,7 +26,7 @@ const useUpdatePassword = () => {
             if (response.data.success) {
                 toast.success("Password updated successfully");
                 console.log(adminStore.adminData.username);
-                navigate(`/dashboard/${adminStore.adminData.username}`);
+                navigate(`/dashboard/${adminStore.currentPage}/${adminStore.adminData.username}`);
             } else if (response.data.error) {
                 throw new Error(response.data.error);
             } else {

@@ -6,6 +6,7 @@ import useAdminStore from '../../Zustand/adminStore';
 import useAddUpdate from '../../Hooks/useAddUpdate';
 import useEditUpdate from '../../Hooks/useEditUpdate';
 import useDeleteUpdate from '../../Hooks/useDeleteUpdate';
+import { useNavigate } from 'react-router-dom';
 
 
 function LatestUpdateViewAndEdit() {
@@ -16,6 +17,7 @@ function LatestUpdateViewAndEdit() {
   const updatedData = useUpdateStore((state)=>state.updates)
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isEditReq,setIsEditReq] = useState(false)
+  const navigate = useNavigate()
   const [Edits,setEdits] = useState({
                               tittle : '',
                               message : '',
@@ -27,9 +29,7 @@ function LatestUpdateViewAndEdit() {
   const {loadin,editUpdate}= useEditUpdate()
   const {loadeng,deleteUpdate} = useDeleteUpdate()
   // Dummy update data in your format is dumped now 😂😂😂😂
-  console.log("seedha",updatedData[0])
-  const dataToShow = updatedData[0].slice().sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-  console.log(dataToShow.reverse())
+
   useEffect(()=>{
     const fetchAllUpdate = async()=>{
       try {
@@ -55,8 +55,14 @@ function LatestUpdateViewAndEdit() {
       }
     };
     fetchAllUpdate();
-  },[adminStore.currentPage,loading,loadin,loadeng])
+  },[adminStore.authStats,adminStore.currentPage,loading,loadin,loadeng])
 
+  console.log("seedha",updatedData[0])
+  const dataToShoi=updatedData[0]
+  console.log("marked erroe",dataToShoi)
+  const dataToShow = updatedData[0].slice().sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+  console.log(dataToShow.reverse())
+  
   const handleEdit = (xyz) => {
     console.log('Edit Update clicked for id:', xyz);
     setEdits({
@@ -243,7 +249,7 @@ function LatestUpdateViewAndEdit() {
       {isEditReq && (<div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full" id="my-modal">
           <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
             <div className="mt-3 text-center">
-              <h3 className="text-lg leading-6 font-medium text-gray-900">Add New Update</h3>
+              <h3 className="text-lg leading-6 font-medium text-gray-900">Edit The Update</h3>
               <form onSubmit={handleEditSubmit} className="mt-2 text-left">
                 <div className="mb-4">
                   <label htmlFor="tittle" className="block text-gray-700 text-sm font-bold mb-2">Title</label>
