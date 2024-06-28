@@ -1,6 +1,16 @@
 import React from 'react';
+import useOneTimePayment from '../../Hooks/useOneTimePayment';
+import toast from 'react-hot-toast';
+ useOneTimePayment
 
 function PaymentGateway() {
+  const {oneTimePayment,loading} = useOneTimePayment()
+  const handleOneTimePayment = async(amount)=>{
+    console.log("server is been requested",amount)
+    await oneTimePayment(amount)
+    toast.success("Request sent")
+  }
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="text-center mb-12">
@@ -25,7 +35,7 @@ function PaymentGateway() {
             <li className='text-green-500'><b>12*7 Full Support</b></li>
             
           </ul>
-          <button className="w-full bg-orange-500 text-white py-2 rounded-md hover:bg-orange-600 transition duration-300">Choose Plan</button>
+          <button  onClick={() => handleOneTimePayment(5999)} className="w-full bg-orange-500 text-white py-2 rounded-md hover:bg-orange-600 transition duration-300">Choose Plan</button>
         </div>
 
         {/* Card 2 - Per Month (with Best Seller badge) */}

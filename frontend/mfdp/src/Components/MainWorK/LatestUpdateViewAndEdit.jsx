@@ -55,7 +55,7 @@ function LatestUpdateViewAndEdit() {
       }
     };
     fetchAllUpdate();
-  },[adminStore.authStats,adminStore.currentPage,loading,loadin,loadeng])
+  },[loading,loadin,loadeng])
 
   console.log("seedha",updatedData[0])
   const dataToShoi=updatedData[0]

@@ -26,13 +26,28 @@ app.use(express.urlencoded({
     limit:"16kb"
 }))
 
+app.get("/api/getKey",(req,res)=>{
+    return res.status(200).json(new ApiResponse(
+        200,
+        {
+            key : process.env.RAZORPAY_API_KEY_ID
+        },
+        "Key fetched Succesfully"
+        
+    ))
+})
+
 app.use(express.static("public"))//public asset hae jaha 
 
 import adminRouter from "./routes/admin.routes.js"
 import updateRouter from "./routes/updates.routes.js"
 import healthRouter from "./routes/healthcheck.routes.js"
+import paymentRouter from "./routes/payment.routes.js"
+import { ApiResponse } from "./utils/ApiResponse.js"
+
 app.use("/api/v1/admin",adminRouter)
 app.use("/api/v2/update",updateRouter)
 app.use("/api/healthchek",healthRouter)
+app.use("/api/v3/raz_pay",paymentRouter)
 
 export {app}
