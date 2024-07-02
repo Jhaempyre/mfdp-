@@ -4,7 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import {uploadOnCloudinary} from "../utils/cloudinary.js";
 import Admin from "../models/admin.models.js";
 import Payment from "../models/razorpayPayment.models.js"
-import sendEmail from "../utils/sendEmail.js";
+import { sendEmail } from "../utils/sendEmail.js";
 import { instance } from "../server.js"
 import crypto from "crypto";
 
@@ -56,6 +56,10 @@ const paymentVerification = asyncHandler(async(req,res)=>{
             //bill banana hae 
             //mail krna hae 
             //payment bill update krna hae database mae 
+            // on the server side we will chek if the payment is received by getting elemnt order
+            //order.status if it is possitive or true we will do one thing we will redirect to succes page 
+            //once we will find that the requestd is null then wee will simply change the frontend to the failure page with the back to home button
+            
         console.log("we reached here")
         res.redirect(`http://localhost:5173/dashboard/Latest_Update/${username}`)
 
