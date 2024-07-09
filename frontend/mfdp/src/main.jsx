@@ -25,6 +25,8 @@ import TeacherAndEmployeeAttendancePage from './Pages/TeacherAndEmployeeAttendan
 import InventoryManagementPage from './Pages/InventoryManagementPage.jsx'
 import EmployeeSalrieStructurePage from './Pages/EmployeeSalrieStructurePage.jsx'
 import RoutineViewAndUpdatePage from './Pages/RoutineViewAndUpdatePage.jsx'
+import PaymentSuccessPage from './Pages/PaymentSuccessPage.jsx'
+import PaymentFailurePage from './Pages/PaymentFailurePage.jsx'
 
 
 const router = createBrowserRouter([
@@ -160,6 +162,18 @@ const router = createBrowserRouter([
         path : '/set-settings',
         element:(
           <SettingsPage/>
+        )
+      },
+      {
+        path : '/PaymentSuccess',
+        element:(
+          <PaymentSuccessPage/>
+        )
+      },
+      {
+        path : '/PaymentFailure',
+        element:(
+          <PaymentFailurePage/>
         )
       }
     ]

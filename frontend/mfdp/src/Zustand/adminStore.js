@@ -24,6 +24,7 @@ const useAdminStore = create(
         passwordtoken : "",
         otpVerified : false,
         currentPage: "Latest_Update",
+        paymentStats:false,
         loggedAdmin: (data) => set({
           adminData: data
         }),
@@ -61,7 +62,10 @@ const useAdminStore = create(
         }),
         pageStatus:(data)=>set({
           currentPage : data
-        })
+        }),
+        paymentStatus : (data) => set({
+          paymentStats : data
+        }),
       }),
       {
         name: 'admin',
