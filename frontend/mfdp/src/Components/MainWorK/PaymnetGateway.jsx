@@ -71,7 +71,7 @@ function PaymentGateway() {
           <li className='text-green-500'><b>Budget Freindly</b></li>
           <li className='text-black'><b>Full refund in 30 days</b></li>
           </ul>
-          <button className="w-full bg-purple-500 text-white py-2 rounded-md hover:bg-purple-600 transition duration-300">Choose Plan</button>
+          <button onClick={() => handleOneTimePayment(35999)} className="w-full bg-purple-500 text-white py-2 rounded-md hover:bg-purple-600 transition duration-300">Choose Plan</button>
         </div>
       </div>
     </div>
