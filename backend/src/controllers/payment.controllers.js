@@ -9,7 +9,6 @@ import { instance } from "../server.js"
 import crypto from "crypto";
 
 
-
 const checkOut = asyncHandler(async(req,res)=>{
     console.log("request received from the frontend for One time payment ")
     try {
@@ -56,9 +55,6 @@ const paymentVerification = asyncHandler(async(req,res)=>{
             //bill banana hae 
             //mail krna hae 
             //payment bill update krna hae database mae 
-            // on the server side we will chek if the payment is received by getting elemnt order
-            //order.status if it is possitive or true we will do one thing we will redirect to succes page 
-            //once we will find that the requestd is null then wee will simply change the frontend to the failure page with the back to home button
 
         console.log("we reached here")
         res.redirect(`http://localhost:5173/PaymentSuccess`)
@@ -72,6 +68,26 @@ const paymentVerification = asyncHandler(async(req,res)=>{
     }
 })
 
+const subscription = asyncHandler(async(req,res)=>{
+    console.log("request received from the frontend for subscription ")
+    try {
+        const subscription = await instance.subscriptions.create({
+            plan_id: process.env.SUBSCRIPTION_PLAN_ID,
+            customer_notify: 1,
+            quantity: 1,
+            total_count: 12,
+        })
+        console.log(subscription)
+        return res.status(200).json(
+            new ApiResponse(200,subscription, "Subscription handled succesfully." )
+        )
+        
+    } catch (error) {
+        console.log(error.message)
+        throw new ApiError(400,"Subscription couldn't be initiated ")
+    }
+})
 export {checkOut,
-    paymentVerification
+    paymentVerification , 
+    subscription
 }
