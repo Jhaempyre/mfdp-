@@ -1,14 +1,22 @@
 import React from 'react';
 import useOneTimePayment from '../../Hooks/useOneTimePayment';
 import toast from 'react-hot-toast';
- useOneTimePayment
+import useSubscription from '../../Hooks/useSubscription';
+
 
 function PaymentGateway() {
   const {oneTimePayment,loading} = useOneTimePayment()
+  const {subscription,loadeng} = useSubscription()
   const handleOneTimePayment = async(amount)=>{
     console.log("server is been requested",amount)
     await oneTimePayment(amount)
     toast.success("Request sent")
+  }
+
+  const subscriptionHandler = async()=>{
+    console.log("subscription is been requested")
+    console.log("For subscription , server is being requested")
+    await subscription()
   }
 
   return (
@@ -53,7 +61,7 @@ function PaymentGateway() {
             <li className='text-green-500'><b>Auto Renewal</b></li>
             <li className='text-red-600'><b>24*7 Full support</b></li>
           </ol>
-          <button className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition duration-300">Choose Plan</button>
+          <button onClick={subscriptionHandler} className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition duration-300">Choose Plan</button>
         </div>
 
         {/* Card 3 */}

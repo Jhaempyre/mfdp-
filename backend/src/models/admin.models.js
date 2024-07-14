@@ -82,6 +82,14 @@ const adminSchema = new Schema({
     refreshToken:{
         type :String
 
+    },
+    razorpay_Subscription_id:{
+        type:String,
+        default:""
+    },
+    razorpay_order_id:{
+        type:String,
+        default:""
     }
 
 },

@@ -1,7 +1,7 @@
 import mongoose , {Schema} from "mongoose";
 
-const paymentSchema = new Schema({
-    razorpay_order_id :{
+const subPaymentSchema = new Schema({
+    razorpay_subscription_id :{
         type: String,
         required: true,
     },
@@ -12,10 +12,6 @@ const paymentSchema = new Schema({
     razorpay_signature :{
         type: String,
         required: true,
-        },
-    amount: {
-        type:String,
-        required:true,
         },
     admin:{
         type: Schema.Types.ObjectId,
@@ -29,6 +25,6 @@ const paymentSchema = new Schema({
     timeseries:true,
     timestamps:true})
 
-const Payment = mongoose.model("Payments", paymentSchema);
+const subPayment = mongoose.model("SubPayments", subPaymentSchema);
 
-export default Payment ;
+export default subPayment ;
