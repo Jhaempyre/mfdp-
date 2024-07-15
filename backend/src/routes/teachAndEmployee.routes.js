@@ -5,11 +5,6 @@ import { registerTeacher } from '../controllers/teacherAndEmployeeAdmission.cont
 
 const router = Router()
 
-router.route("/reg_teacher").post(authVerify,upload.fields([
-    {
-        name:"image",
-        maxCount: 1
-    }
-]),registerTeacher)
+router.route("/reg_teacher").post(authVerify,upload.single('image'),registerTeacher)
 
 export default router
