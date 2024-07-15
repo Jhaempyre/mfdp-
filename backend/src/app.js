@@ -43,11 +43,14 @@ import adminRouter from "./routes/admin.routes.js"
 import updateRouter from "./routes/updates.routes.js"
 import healthRouter from "./routes/healthcheck.routes.js"
 import paymentRouter from "./routes/payment.routes.js"
+import regTeachEmployee from "./routes/teachAndEmployee.routes.js"
 import { ApiResponse } from "./utils/ApiResponse.js"
+
 
 app.use("/api/v1/admin",adminRouter)
 app.use("/api/v2/update",updateRouter)
 app.use("/api/healthchek",healthRouter)
 app.use("/api/v3/raz_pay",paymentRouter)
+app.use("/api/v4/reg_teach",regTeachEmployee)
 
 export {app}
