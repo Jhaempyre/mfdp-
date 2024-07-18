@@ -6,6 +6,7 @@ import teacher from "../models/teachers.models.js";
 import accountant from "../models/accountants.models.js";
 import sendJoiningMail from "../utils/sendJoiningEmail.js";
 import counsellor from "../models/counsellor.models.js";
+import librarian from "../models/librarian.models.js";
 
 const registerTeacher = asyncHandler(async (req, res) => {
     console.log("Got request from frontend to admit this teacher");
@@ -232,7 +233,66 @@ const registerCounselor = asyncHandler(async(req,res)=>{
 })
 const registerLibrarian = asyncHandler(async(req,res)=>{
     console.log("got request from backend for registering librarian")
-
+    try {
+        const {
+            name, email, phone, address, education,
+            experience, dateOfBirth, certifications,
+            refrences,  emergencyContact,
+            medicalInfo, Specialization, salary , password,cataloggingSkills
+        } = req.body;
+        console.log(req.body)
+        if([
+            name, email, phone, address, education,
+            experience, dateOfBirth, certifications,
+            refrences,  emergencyContact,
+            medicalInfo, Specialization, salary , password,cataloggingSkills].some((field) => !field || typeof field === 'string' && field.trim() === "")) {
+                throw new ApiError(400, "All fields are required")
+            }
+            const existedLibrariann = await librarian.findOne({
+                where: { email: email }
+            });
+            if (existedLibrariann) {
+                throw new ApiError(400, "Librarian already exists with that email")
+                }
+            let imageLocalPath;
+        
+            if (req.file){
+                imageLocalPath = req.file.path;
+            }
+        
+            if (!imageLocalPath) {
+                throw new ApiError(400, "Photo is required");
+            }   
+            const admen = req.theAdmin; 
+            const imageUrl = await uploadOnCloudinary(imageLocalPath, "Profile photo");
+            console.log(imageUrl);
+            const newLibrarian = await librarian.create({
+                name,
+                email,
+                phone,
+                address,
+                education,
+                experience,
+                dateOfBirth,
+                certifications,
+                refrences,
+                emergencyContact,
+                medicalInfo,
+                Specialization,
+                salary,
+                password,
+                cataloggingSkills,
+                image: imageUrl?.url || "",
+                sschoolUniqueCode: admen.schoolUniqueCode,
+            })
+            await sendJoiningMail(email,salary,name,schoolName,"Librarian")
+            return res.status(201).json(
+                new ApiResponse(200, newLibrarian, "Librarian Registered Successfully")
+            );        
+    } catch (error) {
+        console.log(error);
+        throw new ApiError(400,`${error.message}`)
+    }
 })
 const registerItStaff = asyncHandler(async(req,res)=>{
     console.log("got request from backend for registering IT staff")
