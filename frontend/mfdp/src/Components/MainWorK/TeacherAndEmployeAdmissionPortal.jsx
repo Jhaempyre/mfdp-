@@ -146,47 +146,11 @@ function AdmissionForm({ type, onBack }) {
                 required
               />
             </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="yearsOfExperience">
-                Years of Experience
-              </label>
-              <input
-                type="number"
-                name="yearsOfExperience"
-                onChange={handleInputChange}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                required
-              />
-            </div>
           </>
         );
       case 'security':
         return (
           <>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="securityTraining">
-                Security Training and Certifications
-              </label>
-              <input
-                type="text"
-                name="securityTraining"
-                onChange={handleInputChange}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="yearsOfExperience">
-                Years of Experience
-              </label>
-              <input
-                type="number"
-                name="yearsOfExperience"
-                onChange={handleInputChange}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                required
-              />
-            </div>
           </>
         );
       default:

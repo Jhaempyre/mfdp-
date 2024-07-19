@@ -7,7 +7,7 @@ import { registerAccountant,
          registerLibrarian,
          registerItStaff,
          registerMaintenanceStaff,
-         securityPersonnel } from '../controllers/teacherAndEmployeeAdmission.controllers.js';
+         registersecurityPersonnel} from '../controllers/teacherAndEmployeeAdmission.controllers.js';
 
 const router = Router()
 
@@ -17,6 +17,6 @@ router.route("/reg_Counselor").post(authVerify,upload.single("image"),registerCo
 router.route("/reg_Librarian").post(authVerify,upload.single("image"),registerLibrarian)
 router.route("/reg_ItStaff").post(authVerify,upload.single("image"),registerItStaff)
 router.route("/reg_MaintenanceStaff").post(authVerify,upload.single("image"),registerMaintenanceStaff)
-router.route("/reg_securityPersonnel").post(authVerify,upload.single("image"),securityPersonnel)
+router.route("/reg_securityPersonnel").post(authVerify,upload.single("image"),registersecurityPersonnel)
 
 export default router
