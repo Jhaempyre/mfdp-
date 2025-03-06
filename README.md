@@ -9,7 +9,7 @@
 >>>>>>>>>>>>>>>>>ADD GPG KEYS TO SIGN COMMITS 
 ---COPY THE FOLLOWING (USE sudo if needed , errors like permission denied)
 The most problematic part was this , which was like gpg agent errror: permission denied... we solved this as :
-
+--another problem arised like it is getting signed but not asking for passphrase
 >> gpg --full-generate-key
 Choose RSA and RSA (default).
 Enter 4096 (recommended for security).
