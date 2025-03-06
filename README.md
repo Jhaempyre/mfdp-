@@ -15,6 +15,7 @@ The most problematic part was this , which was like gpg agent errror: permission
 >>> i hope i am in right direction 
 >>VERIFIED CAME CORRECTLY 
 >>NOW ANOTHER PROBLEM IS PASSPHRASE IS NOT BEING ASKED ALL THE TIME IT IS GETTING CACHED , CHAKING THAT 
+>>2nd attempt to make this happen again finger crossed 
 >> gpg --full-generate-key
 Choose RSA and RSA (default).
 Enter 4096 (recommended for security).
