@@ -45,7 +45,7 @@ const useOneTimePayment = ()=>{
                 description: "Payment for 1 month at EduTech",
                 image: adminData.schoolImage,
                 order_id: order.id,
-                callback_url: "http://localhost:8000/api/v3/raz_pay/paymentVerify",
+                callback_url: "http://34.28.192.168:8000/api/v3/raz_pay/paymentVerify",
                 prefill: {
                     name: adminData.schoolName,
                     email: adminData.email,

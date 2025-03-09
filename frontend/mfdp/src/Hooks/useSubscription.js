@@ -43,7 +43,7 @@ const useSubscription = ()=>{
                 description: "Subscription For The EduTech",
                 image: adminData.schoolImage,
                 subscription_id: order.id,
-                callback_url: "http://localhost:8000/api/v3/raz_pay/subPaymentVerify",
+                callback_url: "http://34.28.192.168:8000/api/v3/raz_pay/subPaymentVerify",
                 prefill: {
                     name: adminData.schoolName,
                     email: adminData.email,
