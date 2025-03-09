@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import useAdminStore from '../Zustand/adminStore';
 
 const PaymentSuccessPage = () => {
+  console.log("aaya hu mae server se ")
   const navigate = useNavigate();
   const { paymentStatus, pageStatus, adminData } = useAdminStore();
   const [username, setUsername] = useState('');
