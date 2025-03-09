@@ -4,10 +4,39 @@
 --server is updated 
 >>ssh keys added to edit files remotely and push things
 --readme.md created here to jot everything and step down .
-
-
 >>ADD GPG KEYS TO SIGN COMMITS 
+
 ---COPY THE FOLLOWING (don't use sudo)
+>> gpg --full-generate-key
+Choose RSA and RSA (default).
+Enter 4096 (recommended for security).
+Set Key Expiration
+enter user details
+>>Set a Strong Passphrase
+
+--List the keys
+gpg --list-secret-keys --keyid-format=long
+
+""something like this appears" 
+sec   rsa4096/A1B2C3D4E5F67890 2025-03-04 [SC]
+      ABCD1234EFGH5678IJKL9012MNO34567PQRSTU89
+
+copy A1B2C3D4E5F67890
+
+Configure Git to Use Your GPG Key
+git config --global user.signingkey A1B2C3D4E5F67890
+Enable commit signing by default:
+git config --global commit.gpgsign true
+
+Export Your Public Key (For GitHub)
+gpg --armor --export A1B2C3D4E5F67890  
+
+--test signing with commit 
+
+git commit -S -m "Test signed commit"
+
+
+
 The most problematic part was this , which was like gpg agent errror: permission denied... we solved this as :
 --another problem arised like it is getting signed but not asking for passphrase
 >>solved this by some steps now asking for passpharase will chek again but the commit going 
@@ -59,6 +88,8 @@ thus ,, keeping these things and debugging all through made all ...
 
 
 
+//Deploying backend 
+
 ## Looking for new problems🎇🎇💀💀
 // The next thing we headed was yesterday to deploy the app 
 we first deployed normally like running development server 
@@ -85,38 +116,110 @@ everything seems currently seems good
 let's bring new problem by deploying frontend .
 
 
+// Frontend deployment
+
+Frontend Deployment was  a crucial part i will say connecting both frontend and backend was crucial part either
 
 
->> gpg --full-generate-key
-Choose RSA and RSA (default).
-Enter 4096 (recommended for security).
-Set Key Expiration
-enter user details
->>Set a Strong Passphrase
+we deployed the whole thing on nginx and we reverse proxied our all routed to backend routes
+this included the installantion of nginx 
+building the frontend project and then serving the static pages over nginx 
+basically nginx has somneting called it's own static pages what we have todo is to removbe them and replace them with ours build files 
 
---List the keys
-gpg --list-secret-keys --keyid-format=long
+we did thos thing 
+what problem i got 
 
-""something like this appears" 
-sec   rsa4096/A1B2C3D4E5F67890 2025-03-04 [SC]
-      ABCD1234EFGH5678IJKL9012MNO34567PQRSTU89
+the deployment over nginx is easy because it just a command away 
+what was the most crucial part is reverse proxiyng it to backend url as other where our vite.conf.js was also made diffrent 
+to proxy all the api headed request to some url and etc 
 
-copy A1B2C3D4E5F67890
-
-Configure Git to Use Your GPG Key
-git config --global user.signingkey A1B2C3D4E5F67890
-Enable commit signing by default:
-git config --global commit.gpgsign true
-
-Export Your Public Key (For GitHub)
-gpg --armor --export A1B2C3D4E5F67890  
-
---test signing with commit 
-
-git commit -S -m "Test signed commit"
+thus by such hardship and debugging i was able to match the coorect intent and content
+and we landed  to our things 
 
 
+what was some easy bugs 
+>> cors policy --- while developing locally i tried to open iot for all networks but for now we only accept request from the ip mentioned there 
+>> we were strictly passing option with secure as true while it should not be true beacause we were not on secured network i.e https , thus we made it false and boom it worked all 
+
+## Below is the nginx configuration you need and the commands for future prospects.
+
+# Navigate to your frontend project directory
+cd /path/to/your/frontend
+
+# Install dependencies (if not already done)
+npm install
+
+# Build for production
+npm run build
+
+2. Install Nginx if not already installed
+
+sudo apt update
+sudo apt install nginx
+
+Configure Nginx
+Let's create a new Nginx configuration file for your site:
+sudo nano /etc/nginx/sites-available/your-app
+
+paste it there as it is with just changing your backend url and external ip adress
 
 
+server {
+    listen 80;
+    # Replace with your domain or server IP
+    server_name your-domain.com www.your-domain.com;
+    
+    # Root directory for your frontend build
+    root /var/www/your-app;
+    index index.html;
+    
+    # Serve static files
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+    
+    # Proxy API requests to your backend
+    location /api/ {
+        proxy_pass http://34.28.192.168:8000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
 
+Enable the site and deploy your frontend
+
+# Create directory for your app
+sudo mkdir -p /var/www/your-app
+
+# Copy your built frontend to the Nginx serve directory
+sudo cp -r /path/to/your/frontend/dist/* /var/www/your-app/
+
+# Enable your site
+sudo ln -s /etc/nginx/sites-available/your-app /etc/nginx/sites-enabled/
+
+# Set proper permissions
+
+sudo chown -R www-data:www-data /var/www/your-app
+sudo chmod -R 755 /var/www/your-app
+
+# Test Nginx configuration
+sudo nginx -t
+
+# If the test passes, restart Nginx
+sudo systemctl restart nginx
+
+
+And boom deployed do place the frontend folder adress as per your own .
+
+
+>>>>>>>>>>> What could be our next step then <<<<<<>>>>>>
+
+two problems i have faced regarding this 
+
+we will also update the script for direct deployment over the nginx 
+after payment verification the redirection problem 
+in subscription of razorpay there is a problem of ui will chek these two and update .
 
