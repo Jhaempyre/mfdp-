@@ -163,7 +163,7 @@ sudo nano /etc/nginx/sites-available/your-app
 
 paste it there as it is with just changing your backend url and external ip adress
 
-
+```
 server {
     listen 80;
     # Replace with your domain or server IP
@@ -188,7 +188,7 @@ server {
         proxy_cache_bypass $http_upgrade;
     }
 }
-
+```
 Enable the site and deploy your frontend
 
 # Create directory for your app
