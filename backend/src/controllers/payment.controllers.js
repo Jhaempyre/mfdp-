@@ -58,10 +58,10 @@ const paymentVerification = asyncHandler(async(req,res)=>{
             //payment bill update krna hae database mae 
 
         console.log("we reached here")
-        res.redirect(`http://localhost:5173/PaymentSuccess`)
+        res.redirect(`http://34.28.192.168:8000/PaymentSuccess`) // adding the backend url for smnooth tenasition
 
         }else{
-            res.redirect(`http://localhost:5173/PaymentFailure`)
+            res.redirect(`http://34.28.192.168:8000/PaymentFailure`)
             throw new ApiError(400,"something went wrongTry again , if the amount is debiteed will be refunded in 7 days")
         }
     } catch (error) {
@@ -113,7 +113,7 @@ const subPaymentVerification = asyncHandler(async(req,res)=>{
         console.log("Calculated Signature", expectedSignature);
         const isAuthentic = expectedSignature === razorpay_signature;
         if(!isAuthentic){
-            res.redirect(`http://localhost:5173/PaymentFailure`)
+            res.redirect(`http://34.28.192.168:8000/PaymentFailure`)
             throw new ApiError(400,"Subscription payment verification failed")
         }
         console.log("working")
@@ -128,7 +128,7 @@ const subPaymentVerification = asyncHandler(async(req,res)=>{
             schoolUniqueCode:admen.schoolUniqueCode,
         })
         console.log("we reached here")
-        res.redirect(`http://localhost:5173/PaymentSuccess`)
+        res.redirect(`http://34.28.192.168:8000/PaymentSuccess`)
 
     } catch (error) {
         throw new ApiError(400,"Couldn't verify the payment , please check and try again later with valid credentials")
