@@ -13,7 +13,6 @@ dotenv.config({
 
 //connecting to databse and spining up the server 
 console.log("ram")
-console.log(process.env.MONGODB_URI)
 connectDB().then(()=>{
     app.listen(process.env.PORT|| 8000,()=>{
         console.log(`server is runnning at ${process.env.PORT}`)

@@ -4,10 +4,12 @@ import cookieParser from "cookie-parser"
 const app =  express()
 
 // to permit the cross origin 
-/*app.use(cors({
+app.use(cors({
     origin:process.env.CORS_ORIGIN,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials:true
-}))*/
+}))
 
 // to parse the incoming requests with JSON payloads (from req.body)
 

@@ -188,8 +188,9 @@ const adminLogin = asyncHandler(async(req,res)=>{
     console.log(loggedInAdmin)
 
     const options = {
-        httpOnly : true ,
-        secure : true
+        httpOnly : true 
+	//will be set true when we will setup ssl for this  then ,
+	//secure :true
     }
 
 
@@ -317,8 +318,9 @@ const forgetPassword = asyncHandler(async(req,res)=>{
     console.log("jaanki raani")
     
     const options = {
-        httpOnly : true ,
-        secure : true
+        httpOnly : true 
+	//after http thing to https
+        //secure : true
     }
 
     return res.status(201)
